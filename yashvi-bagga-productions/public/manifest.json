@@ -1,0 +1,11 @@
+{
+  "short_name": "YBP",
+  "name": "Yashvi Bagga Productions",
+  "icons": [],
+  "start_url": "/",
+  "background_color": "#0A0A0A",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#D4AF37",
+  "description": "Premium Creative Media & Digital Production Agency"
+}

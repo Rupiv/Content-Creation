@@ -1,0 +1,19 @@
+# Dependencies
+/node_modules
+
+# Build outputs
+/dist
+/out-tsc
+
+# IDEs
+/.idea
+/.vscode/*
+!/.vscode/extensions.json
+
+# Misc
+/.angular/cache
+.DS_Store
+Thumbs.db
+
+# Environment files
+/src/environments/environment.prod.ts
