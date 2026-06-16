@@ -1,13 +1,21 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScrollAnimationDirective } from '../../shared/directives/scroll-animation.directive';
 import { SeoService } from '../../core/services/seo.service';
+import { CaptchaComponent } from '../../shared/components/captcha/captcha.component';
+import { RequirementTextareaComponent } from '../../shared/components/requirement-textarea/requirement-textarea.component';
+import { EmailOtpComponent } from '../../shared/components/email-otp/email-otp.component';
+import { MobileOtpComponent } from '../../shared/components/mobile-otp/mobile-otp.component';
+import { ToastService } from '../../shared/services/toast.service';
+import { NotificationService } from '../../shared/services/notification.service';
+import { indianMobileValidator } from '../../shared/validators/form.validators';
+import { InquiryPayload } from '../../shared/models/notification.model';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ScrollAnimationDirective],
+  imports: [CommonModule, ReactiveFormsModule, ScrollAnimationDirective, CaptchaComponent, RequirementTextareaComponent, EmailOtpComponent, MobileOtpComponent],
   template: `
     <!-- HERO -->
     <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
@@ -143,16 +151,35 @@ import { SeoService } from '../../core/services/seo.service';
                         class="w-full bg-brand-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-brand-white font-poppins text-sm focus:border-brand-gold focus:outline-none transition-all duration-300"
                         placeholder="your@email.com"
                       />
+                      <div class="mt-2">
+                        <app-email-otp
+                          formControlName="emailVerified"
+                          [destination]="contactForm.get('email')?.value || ''"
+                          [destinationValid]="!!contactForm.get('email')?.valid"
+                          purpose="contact-form"
+                        />
+                      </div>
                     </div>
 
                     <div>
-                      <label class="block text-brand-white/60 font-poppins text-sm mb-2">Phone</label>
+                      <label class="block text-brand-white/60 font-poppins text-sm mb-2">Mobile Number *</label>
                       <input
                         formControlName="phone"
                         type="tel"
                         class="w-full bg-brand-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-brand-white font-poppins text-sm focus:border-brand-gold focus:outline-none transition-all duration-300"
                         placeholder="+91 83685 95223"
                       />
+                      @if (contactForm.get('phone')?.touched && contactForm.get('phone')?.hasError('indianMobile')) {
+                        <p class="mt-1.5 text-brand-pink font-poppins text-xs">Enter a valid 10-digit Indian mobile number.</p>
+                      }
+                      <div class="mt-2">
+                        <app-mobile-otp
+                          formControlName="mobileVerified"
+                          [destination]="contactForm.get('phone')?.value || ''"
+                          [destinationValid]="!!contactForm.get('phone')?.valid"
+                          purpose="contact-form"
+                        />
+                      </div>
                     </div>
                   </div>
                 }
@@ -217,14 +244,13 @@ import { SeoService } from '../../core/services/seo.service';
                     <h3 class="text-xl font-playfair text-brand-white mb-2">Final details</h3>
                     <p class="text-brand-white/40 font-poppins text-sm mb-6">Tell us more about your vision.</p>
 
+                    <app-requirement-textarea
+                      formControlName="message"
+                      label="Describe Your Requirement"
+                      [rows]="6"
+                    />
                     <div>
-                      <label class="block text-brand-white/60 font-poppins text-sm mb-2">Your Message *</label>
-                      <textarea
-                        formControlName="message"
-                        rows="6"
-                        class="w-full bg-brand-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-brand-white font-poppins text-sm focus:border-brand-gold focus:outline-none transition-all duration-300 resize-none"
-                        placeholder="Tell us about your project, goals, and timeline..."
-                      ></textarea>
+                      <app-captcha #captchaRef formControlName="captcha" action="contact" />
                     </div>
 
                     <div>
@@ -269,10 +295,15 @@ import { SeoService } from '../../core/services/seo.service';
                   } @else {
                     <button
                       type="submit"
-                      [disabled]="contactForm.invalid"
-                      class="px-8 py-3 bg-brand-gold text-brand-black font-poppins font-semibold rounded-full hover:bg-brand-pink hover:text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                      [disabled]="contactForm.invalid || submitting()"
+                      class="inline-flex items-center gap-2 px-8 py-3 bg-brand-gold text-brand-black font-poppins font-semibold rounded-full hover:bg-brand-pink hover:text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Send Message
+                      @if (submitting()) {
+                        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/><path class="opacity-90" fill="currentColor" d="M12 2a10 10 0 0110 10h-3a7 7 0 00-7-7V2z"/></svg>
+                        Submitting…
+                      } @else {
+                        Send Message
+                      }
                     </button>
                   }
                 </div>
@@ -288,8 +319,13 @@ import { SeoService } from '../../core/services/seo.service';
 export class ContactComponent implements OnInit {
   private readonly seoService = inject(SeoService);
   private readonly fb = inject(FormBuilder);
+  private readonly toast = inject(ToastService);
+  private readonly notifications = inject(NotificationService);
+
+  @ViewChild('captchaRef') private captcha?: CaptchaComponent;
 
   currentStep = signal(1);
+  submitting = signal(false);
 
   socials = [
     { name: 'Instagram', url: 'https://instagram.com/yashvibagga', icon: '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>' },
@@ -302,12 +338,18 @@ export class ContactComponent implements OnInit {
     firstName: ['', [Validators.required, Validators.minLength(2)]],
     lastName: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
-    phone: [''],
+    phone: ['', [Validators.required, indianMobileValidator()]],
     clientType: ['', Validators.required],
     service: ['', Validators.required],
     budget: [''],
-    message: ['', [Validators.required, Validators.minLength(20)]],
+    // Min/max (20–2000) is enforced by <app-requirement-textarea>.
+    message: ['', [Validators.required]],
     source: [''],
+    // Holds the verified reCAPTCHA token; the submit gate enforces it.
+    captcha: [''],
+    // OTP verification tokens — required, so submit is blocked until verified.
+    emailVerified: [null, Validators.required],
+    mobileVerified: [null, Validators.required],
   });
 
   nextStep(): void {
@@ -322,13 +364,47 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  submitForm(): void {
-    if (this.contactForm.valid) {
-      console.log('Form submitted:', this.contactForm.value);
-      alert('Thank you! We\'ll get back to you within 24 hours.');
-      this.contactForm.reset();
-      this.currentStep.set(1);
+  async submitForm(): Promise<void> {
+    if (this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
+      this.toast.error('Please complete all required fields before submitting.');
+      return;
     }
+
+    // Captcha gate — blocks submission until verification succeeds.
+    const verified = await this.captcha?.execute();
+    if (verified === false) {
+      return; // the captcha component surfaces its own message
+    }
+
+    this.submitting.set(true);
+    const loadingId = this.toast.loading('Sending your message…');
+
+    const value = this.contactForm.value;
+    const payload: InquiryPayload = {
+      type: 'contact',
+      label: 'Contact Form',
+      name: `${value.firstName ?? ''} ${value.lastName ?? ''}`.trim(),
+      mobile: value.phone ?? '',
+      email: value.email ?? '',
+      service: value.service ?? '',
+      requirement: value.message ?? '',
+      extra: { clientType: value.clientType, budget: value.budget, source: value.source },
+    };
+
+    this.notifications.notify(payload).subscribe({
+      next: () => {
+        this.toast.update(loadingId, 'success', "Thank you! We'll get back to you within 24 hours.");
+        this.contactForm.reset();
+        this.captcha?.reset();
+        this.currentStep.set(1);
+        this.submitting.set(false);
+      },
+      error: () => {
+        this.toast.update(loadingId, 'error', 'Something went wrong. Please try again or reach us directly.');
+        this.submitting.set(false);
+      },
+    });
   }
 
   ngOnInit(): void {

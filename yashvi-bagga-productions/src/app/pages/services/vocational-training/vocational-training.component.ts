@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ScrollAnimationDirective } from '../../../shared/directives/scroll-animation.directive';
 import { SectionHeaderComponent } from '../../../shared/components/section-header/section-header.component';
 import { SeoService } from '../../../core/services/seo.service';
@@ -335,6 +335,7 @@ import { SeoService } from '../../../core/services/seo.service';
 })
 export class VocationalTrainingComponent implements OnInit {
   private readonly seoService = inject(SeoService);
+  private readonly router = inject(Router);
 
   trainingPrograms = [
     {
@@ -472,10 +473,15 @@ export class VocationalTrainingComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    const currentPath = this.router.url.split('?')[0];
+    const pageUrl = currentPath.startsWith('/services/')
+      ? 'https://yashvibagga.com/services/vocational-training'
+      : 'https://yashvibagga.com/vocational-training';
+
     this.seoService.updateMetaTags({
       title: 'Vocational Training Programs | YASHVI BAGGA PRODUCTIONS',
       description: 'Comprehensive vocational and professional training programs in IT, digital marketing, soft skills, and career development.',
-      url: 'https://yashvibagga.com/services/vocational-training',
+      url: pageUrl,
     });
   }
 

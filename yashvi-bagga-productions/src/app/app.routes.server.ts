@@ -14,6 +14,46 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
   },
   {
+    path: 'casting-services',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'talent-network',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'it-solutions',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'workforce-solutions',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'vocational-training',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'join-network',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'casting-application',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'media-professional',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'manpower-requirement',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'our-process',
+    renderMode: RenderMode.Prerender,
+  },
+  {
     path: 'portfolio',
     renderMode: RenderMode.Prerender,
   },

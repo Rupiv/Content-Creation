@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ScrollAnimationDirective } from '../../../shared/directives/scroll-animation.directive';
 import { SectionHeaderComponent } from '../../../shared/components/section-header/section-header.component';
 import { MagneticButtonComponent } from '../../../shared/components/magnetic-button/magnetic-button.component';
@@ -25,7 +25,7 @@ import { SeoService } from '../../../core/services/seo.service';
       <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-32">
         <span class="inline-block text-emerald-400 font-poppins text-sm tracking-[4px] uppercase mb-4 animate-fade-in">Corporate Excellence</span>
         <h1 class="heading-xl text-brand-white mb-6 animate-slide-up">
-          Manpower <span class="gradient-text" style="background: linear-gradient(135deg, #10b981, #0ea4a4);">Outsourcing</span>
+          Workforce <span class="gradient-text" style="background: linear-gradient(135deg, #10b981, #0ea4a4);">Solutions</span>
         </h1>
         <p class="body-lg text-brand-white/60 max-w-3xl mx-auto animate-slide-up" style="animation-delay: 0.3s;">
           Strategic staffing solutions that connect your organization with top-tier talent. We simplify recruitment, reduce overhead, and ensure seamless workforce integration.
@@ -313,6 +313,7 @@ import { SeoService } from '../../../core/services/seo.service';
 })
 export class ManpowerOutsourcingComponent implements OnInit {
   private readonly seoService = inject(SeoService);
+  private readonly router = inject(Router);
 
   staffingSolutions = [
     {
@@ -429,10 +430,15 @@ export class ManpowerOutsourcingComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    const currentPath = this.router.url.split('?')[0];
+    const pageUrl = currentPath.startsWith('/services/')
+      ? 'https://yashvibagga.com/services/manpower-outsourcing'
+      : 'https://yashvibagga.com/workforce-solutions';
+
     this.seoService.updateMetaTags({
-      title: 'Manpower Outsourcing Services | YASHVI BAGGA PRODUCTIONS',
-      description: 'Professional staffing and manpower outsourcing services including technical, non-technical, contract, and permanent hiring solutions.',
-      url: 'https://yashvibagga.com/services/manpower-outsourcing',
+      title: 'Workforce & Outsourcing Solutions | YASHVI BAGGA PRODUCTIONS',
+      description: 'Professional staffing and workforce outsourcing solutions including technical, non-technical, contract, and permanent hiring support.',
+      url: pageUrl,
     });
   }
 

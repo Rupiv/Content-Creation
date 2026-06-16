@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ScrollAnimationDirective } from '../../../shared/directives/scroll-animation.directive';
 import { SectionHeaderComponent } from '../../../shared/components/section-header/section-header.component';
 import { MagneticButtonComponent } from '../../../shared/components/magnetic-button/magnetic-button.component';
@@ -28,8 +28,8 @@ import gsap from 'gsap';
       <div class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-32">
         <span class="inline-block text-cyan-400 font-poppins text-sm tracking-[4px] uppercase mb-4 animate-fade-in">Futuristic Technology</span>
         <h1 class="heading-xl text-brand-white mb-6 animate-slide-up">
-          IT Solutions
-          <span class="gradient-text-cyan">& Services</span>
+          Technology
+          <span class="gradient-text-cyan">& Digital Solutions</span>
         </h1>
         <p class="body-lg text-brand-white/60 max-w-3xl mx-auto animate-slide-up" style="animation-delay: 0.3s;">
           Enterprise-grade technology solutions designed to transform your digital infrastructure, accelerate innovation, and drive sustainable growth in the digital landscape.
@@ -289,6 +289,7 @@ import gsap from 'gsap';
 export class ItSolutionsComponent implements OnInit {
   private readonly seoService = inject(SeoService);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly router = inject(Router);
 
   coreServices = [
     {
@@ -395,10 +396,15 @@ export class ItSolutionsComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    const currentPath = this.router.url.split('?')[0];
+    const pageUrl = currentPath.startsWith('/services/')
+      ? 'https://yashvibagga.com/services/it-solutions'
+      : 'https://yashvibagga.com/it-solutions';
+
     this.seoService.updateMetaTags({
-      title: 'IT Solutions & Services | YASHVI BAGGA PRODUCTIONS',
-      description: 'Enterprise-grade IT solutions including web development, mobile apps, cloud solutions, and digital transformation services.',
-      url: 'https://yashvibagga.com/services/it-solutions',
+      title: 'Technology & Digital Solutions | YASHVI BAGGA PRODUCTIONS',
+      description: 'Enterprise-grade technology solutions including web development, mobile apps, cloud infrastructure, and digital transformation.',
+      url: pageUrl,
     });
   }
 }

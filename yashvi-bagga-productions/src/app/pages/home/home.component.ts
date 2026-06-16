@@ -1,375 +1,402 @@
-import { Component, OnInit, OnDestroy, inject, AfterViewInit, PLATFORM_ID, signal } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ScrollAnimationDirective } from '../../shared/directives/scroll-animation.directive';
 import { SectionHeaderComponent } from '../../shared/components/section-header/section-header.component';
 import { MagneticButtonComponent } from '../../shared/components/magnetic-button/magnetic-button.component';
-import { AnimationService } from '../../core/services/animation.service';
 import { SeoService } from '../../core/services/seo.service';
+import { EcosystemExpansionComponent } from './sections/ecosystem-expansion.component';
+import { IndustriesComponent } from './sections/industries.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, ScrollAnimationDirective, SectionHeaderComponent, MagneticButtonComponent],
+  imports: [CommonModule, RouterLink, ScrollAnimationDirective, SectionHeaderComponent, MagneticButtonComponent, EcosystemExpansionComponent, IndustriesComponent],
   template: `
     <!-- HERO SECTION -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <!-- Video Background Placeholder -->
-      <div class="absolute inset-0 bg-brand-black">
-        <div class="absolute inset-0 bg-gradient-to-b from-brand-black/60 via-transparent to-brand-black"></div>
-        <!-- Animated gradient background as video placeholder -->
-        <div class="absolute inset-0 opacity-30">
-          <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-gold/20 rounded-full blur-[120px] animate-float"></div>
-          <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-brand-pink/15 rounded-full blur-[100px] animate-float" style="animation-delay: -3s;"></div>
-          <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-brand-gold/10 rounded-full blur-[80px] animate-float" style="animation-delay: -1.5s;"></div>
-        </div>
-      </div>
+    <section class="relative min-h-screen overflow-hidden bg-brand-black text-brand-white">
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-black via-brand-dark to-brand-black"></div>
+      <div class="absolute top-10 left-10 w-72 h-72 rounded-full bg-brand-gold/10 blur-[120px]"></div>
+      <div class="absolute right-0 top-1/3 w-96 h-96 rounded-full bg-brand-pink/10 blur-[130px]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.06),_transparent_35%)] pointer-events-none"></div>
 
-      <!-- Grain overlay -->
-      <div class="absolute inset-0 noise-overlay pointer-events-none"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-6 py-24 lg:py-32">
+        <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
+          <div class="space-y-10">
+            <div class="overflow-hidden">
+              <p class="font-poppins text-brand-gold text-sm tracking-[5px] uppercase mb-6 animate-fade-in" style="animation-delay: 0.4s;">
+                YASHVI BAGGA PRODUCTIONS
+              </p>
+            </div>
 
-      <!-- Hero Content -->
-      <div class="relative z-10 max-w-7xl mx-auto px-6 text-center pt-32 md:pt-40">
-        <!-- Tagline -->
-        <div class="mb-8 overflow-hidden">
-          <p class="font-poppins text-brand-gold text-sm md:text-base tracking-[4px] uppercase animate-fade-in" style="animation-delay: 0.5s;">
-            Premium Creative Agency
-          </p>
-        </div>
+            <div class="overflow-hidden">
+              <h1 class="font-playfair font-bold text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-[-0.05em] text-brand-white animate-slide-up" style="animation-delay: 0.6s;">
+                Creating Stories.
+                <span class="block mt-3 text-brand-gold">Building Influence.</span>
+                <span class="block mt-3 text-brand-white">Producing Impact.</span>
+              </h1>
+            </div>
 
-        <!-- Main Headline -->
-        <div class="mb-8 overflow-hidden">
-          <h1 class="heading-xl text-brand-white animate-slide-up" style="animation-delay: 0.8s;">
-            Creating <span class="gradient-text">Influence</span>.<br/>
-            Building <span class="gradient-text-pink">Brands</span>.<br/>
-            Producing Digital <span class="gradient-text">Impact</span>.
-          </h1>
-        </div>
+            <div class="max-w-2xl space-y-6 overflow-hidden">
+              <p class="body-lg text-brand-white/70 animate-slide-up" style="animation-delay: 0.8s;">
+                YASHVI BAGGA PRODUCTIONS is a next-generation creative media and digital production agency delivering impactful storytelling, influencer collaborations, social media growth and premium content experiences.
+              </p>
 
-        <!-- Subtitle -->
-        <div class="mb-12 overflow-hidden">
-          <p class="body-lg text-brand-white/60 max-w-2xl mx-auto animate-slide-up" style="animation-delay: 1.1s;">
-            We are a luxury creative media & digital production agency helping brands, creators
-            and businesses grow through powerful storytelling and cinematic content.
-          </p>
-        </div>
+              <div class="flex flex-col sm:flex-row gap-4 items-center animate-slide-up" style="animation-delay: 1s;">
+                <app-magnetic-button>
+                  <a routerLink="/contact" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-gold text-brand-black font-semibold rounded-full transition-all duration-500 hover:bg-brand-white">
+                    Book a Consultation
+                  </a>
+                </app-magnetic-button>
+                <app-magnetic-button>
+                  <a routerLink="/portfolio" class="inline-flex items-center gap-3 px-8 py-4 border border-brand-white/20 text-brand-white font-medium rounded-full transition-all duration-500 hover:border-brand-gold hover:text-brand-gold">
+                    Explore Our Work
+                  </a>
+                </app-magnetic-button>
+              </div>
+            </div>
 
-        <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 1.4s;">
-          <app-magnetic-button>
-            <a routerLink="/contact" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-gold text-brand-black font-poppins font-semibold rounded-full hover:bg-brand-pink hover:text-white transition-all duration-500 group">
-              Start Your Project
-              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-          </app-magnetic-button>
-          <app-magnetic-button>
-            <a routerLink="/portfolio" class="inline-flex items-center gap-2 px-8 py-4 border border-brand-white/20 text-brand-white font-poppins font-medium rounded-full hover:border-brand-gold hover:text-brand-gold transition-all duration-500">
-              View Our Work
-            </a>
-          </app-magnetic-button>
-        </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+              @for (feature of heroFeatures; track feature.title) {
+                <div class="group relative overflow-hidden rounded-[28px] border border-brand-white/10 bg-brand-dark/70 p-6 transition-all duration-500 hover:border-brand-gold/25 hover:bg-brand-black/80">
+                  <div class="absolute left-0 top-0 h-full w-full bg-gradient-to-r from-brand-gold/5 via-transparent to-brand-pink/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                  <div class="relative z-10 space-y-3">
+                    <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-gold/10 text-brand-gold">
+                      {{ feature.icon }}
+                    </div>
+                    <h3 class="text-lg font-playfair text-brand-white">{{ feature.title }}</h3>
+                    <p class="text-brand-white/60 text-sm leading-6">{{ feature.description }}</p>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
 
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <div class="w-6 h-10 border-2 border-brand-white/30 rounded-full flex items-start justify-center p-1.5">
-            <div class="w-1.5 h-3 bg-brand-gold rounded-full animate-pulse"></div>
+          <div class="relative">
+            <div class="relative overflow-hidden rounded-[40px] border border-brand-white/10 bg-brand-dark/90 shadow-[0_40px_120px_rgba(0,0,0,0.45)]">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(212,175,55,0.15),_transparent_40%)]"></div>
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(255,45,136,0.16),_transparent_35%)]"></div>
+              <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-brand-black/80 to-transparent"></div>
+              <div class="aspect-[9/12] bg-[url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center"></div>
+              <div class="absolute inset-0 bg-brand-black/30"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-8">
+                <p class="mb-4 text-xs uppercase tracking-[0.32em] text-brand-gold/80">Featured Story</p>
+                <h2 class="text-3xl font-playfair text-brand-white mb-4">The Editorial Vision Behind Every Frame</h2>
+                <p class="text-brand-white/60 text-sm leading-6">A premium portrait of cinematic elegance, creative direction and storytelling that feels like a fashion magazine cover.</p>
+              </div>
+            </div>
+            <div class="absolute -bottom-10 left-8 w-40 h-40 rounded-full border border-brand-gold/20 bg-brand-gold/10 blur-[50px]"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SOCIAL PROOF / STATS -->
-    <section class="section-padding bg-brand-black relative">
-      <div class="absolute inset-0 bg-gradient-to-b from-brand-black via-brand-gray/30 to-brand-black"></div>
-      <div class="relative max-w-7xl mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8" appScrollAnimation animationType="fade-up">
-          @for (stat of stats; track stat.label) {
-            <div class="text-center group">
-              <div class="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold gradient-text mb-2 group-hover:scale-110 transition-transform duration-300">
-                {{ stat.value }}
+    <app-ecosystem-expansion />
+
+    <!-- FOUNDER SECTION -->
+    <section class="section-padding bg-brand-black relative overflow-hidden">
+      <div class="absolute right-0 top-0 w-72 h-72 rounded-full bg-brand-pink/10 blur-[100px]"></div>
+      <div class="relative max-w-7xl mx-auto grid gap-12 lg:grid-cols-[0.95fr_1.05fr] items-center">
+        <div class="relative rounded-[36px] border border-brand-gold/10 bg-brand-dark/90 p-8 overflow-hidden">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.05),_transparent_30%)]"></div>
+          <div class="aspect-[4/5] rounded-[32px] overflow-hidden bg-[url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center"></div>
+          <div class="absolute bottom-8 left-8 rounded-[28px] border border-brand-white/10 bg-brand-black/70 p-5 backdrop-blur-sm">
+            <p class="text-brand-white/60 text-xs uppercase tracking-[0.32em] mb-2">Founder & Creative Director</p>
+            <p class="text-brand-white font-playfair text-xl">Yashvi Bagga</p>
+            <p class="text-brand-gold text-xs mt-2">Signature Creative Vision</p>
+          </div>
+        </div>
+
+        <div class="space-y-8">
+          <div class="flex flex-col gap-4">
+            <span class="text-brand-gold text-sm uppercase tracking-[0.3em]">About The Founder</span>
+            <h2 class="heading-lg text-brand-white max-w-xl">An editorial storyteller shaping luxurious creator campaigns and cinematic brand narratives.</h2>
+            <p class="body-lg text-brand-white/70 max-w-2xl">Yashvi Bagga is a passionate content creator, digital storyteller, and creative entrepreneur. From bold fashion campaigns to high-impact social launches, every project is crafted with editorial precision, emotional storytelling, and premium visual identity.</p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            @for (value of founderValues; track value.title) {
+              <div class="glass-card p-6 border border-brand-white/10">
+                <p class="text-brand-gold uppercase text-[11px] tracking-[0.3em] mb-4">{{ value.title }}</p>
+                <p class="text-brand-white/70 text-sm leading-6">{{ value.description }}</p>
               </div>
-              <div class="text-brand-white/50 font-poppins text-sm uppercase tracking-wider">
-                {{ stat.label }}
-              </div>
-            </div>
-          }
+            }
+          </div>
+
+          <div class="rounded-[28px] border border-brand-gold/15 bg-brand-black/70 p-8 backdrop-blur-sm">
+            <p class="text-brand-white/90 font-playfair text-2xl mb-4">“We build influence with each story, making every brand feel like a cover story.”</p>
+            <p class="text-brand-white/50 text-sm">A signature approach that combines luxury aesthetics, trend-led strategy and cinematic production values.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- FEATURED SERVICES -->
+    <!-- SERVICES SECTION -->
     <section class="section-padding bg-brand-black relative overflow-hidden">
-      <!-- Background accents -->
-      <div class="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full blur-[100px]"></div>
-      <div class="absolute bottom-0 left-0 w-80 h-80 bg-brand-pink/5 rounded-full blur-[100px]"></div>
-
+      <div class="absolute left-0 bottom-10 w-72 h-72 rounded-full bg-brand-gold/10 blur-[120px]"></div>
       <div class="relative max-w-7xl mx-auto">
         <app-section-header
-          subtitle="What We Do"
-          title="Our Services"
-          description="We craft digital experiences that captivate audiences and drive results."
+          subtitle="Service Excellence"
+          title="Premium Services"
+          description="A curated suite of luxury offerings for creators, brands and production teams."
           [titleGradient]="true"
           appScrollAnimation
           animationType="fade-up"
         />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          @for (service of featuredServices; track service.title; let i = $index) {
-            <div
-              class="glass-card p-8 group hover:border-brand-gold/30 transition-all duration-500 hover:-translate-y-2"
-              appScrollAnimation
-              animationType="fade-up"
-              [animationDelay]="i * 100"
-            >
-              <div class="w-14 h-14 rounded-xl bg-brand-gold/10 flex items-center justify-center mb-6 group-hover:bg-brand-gold/20 transition-colors duration-300">
-                <span class="text-2xl">{{ service.icon }}</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
+          @for (service of premiumServices; track service.title) {
+            <div class="group relative overflow-hidden rounded-[32px] border border-brand-white/10 bg-brand-dark/80 p-8 transition-all duration-500 hover:-translate-y-2 hover:border-brand-gold/25">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,45,136,0.12),_transparent_40%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+              <div class="relative z-10 space-y-4">
+                <div class="inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-brand-gold/10 text-brand-gold text-xl">
+                  {{ service.icon }}
+                </div>
+                <h3 class="text-2xl font-playfair text-brand-white">{{ service.title }}</h3>
+                <p class="text-brand-white/60 text-sm leading-6">{{ service.description }}</p>
+                <div class="border-t border-brand-white/10 pt-4 text-brand-gold text-xs uppercase tracking-[0.24em]">Explore service</div>
               </div>
-              <h3 class="text-xl font-playfair text-brand-white mb-3 group-hover:text-brand-gold transition-colors duration-300">
-                {{ service.title }}
-              </h3>
-              <p class="text-brand-white/50 font-poppins text-sm leading-relaxed">
-                {{ service.description }}
-              </p>
             </div>
           }
-        </div>
-
-        <div class="text-center mt-12" appScrollAnimation animationType="fade-up">
-          <a routerLink="/services" class="inline-flex items-center gap-2 text-brand-gold font-poppins font-medium hover:gap-4 transition-all duration-300">
-            Explore All Services
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
         </div>
       </div>
     </section>
 
-    <!-- FEATURED CAMPAIGNS / REELS SHOWCASE -->
-    <section class="section-padding bg-brand-dark relative overflow-hidden">
+    <!-- INDUSTRIES WE SERVE (Module 6) -->
+    <app-industries />
+
+    <!-- CORE TEAM SECTION -->
+    <section class="section-padding bg-brand-black relative overflow-hidden">
+      <div class="absolute right-0 top-1/3 w-80 h-80 rounded-full bg-brand-pink/10 blur-[100px]"></div>
       <div class="relative max-w-7xl mx-auto">
         <app-section-header
-          subtitle="Our Work"
-          title="Featured Campaigns"
-          description="Cinematic content that tells stories and builds brands."
+          subtitle="Meet The Team"
+          title="The Creative Minds Behind The Magic"
+          description="Departments and specialists delivering premium production, editorial direction and digital strategy."
+          [titleGradient]="true"
           appScrollAnimation
           animationType="fade-up"
         />
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          @for (reel of reelsShowcase; track reel.title; let i = $index) {
-            <div
-              class="relative group rounded-2xl overflow-hidden aspect-[9/16] cursor-pointer"
-              appScrollAnimation
-              animationType="scale"
-              [animationDelay]="i * 80"
-            >
-              <!-- Placeholder gradient background -->
-              <div class="absolute inset-0" [style.background]="reel.gradient"></div>
-
-              <!-- Overlay -->
-              <div class="absolute inset-0 bg-brand-black/40 group-hover:bg-brand-black/20 transition-all duration-500"></div>
-
-              <!-- Play button -->
-              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <div class="w-14 h-14 rounded-full bg-brand-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
-                  <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4 mt-10">
+          @for (team of coreTeam; track team.name) {
+            <div class="group rounded-[32px] border border-brand-white/10 bg-brand-dark/80 p-6 transition-all duration-500 hover:-translate-y-2 hover:border-brand-gold/25">
+              <div class="flex items-center gap-4">
+                <div class="h-16 w-16 rounded-full bg-brand-white/5 border border-brand-white/10 flex items-center justify-center text-brand-gold text-xl font-semibold">{{ team.initials }}</div>
+                <div>
+                  <p class="text-brand-white font-semibold">{{ team.name }}</p>
+                  <p class="text-brand-white/50 text-sm">{{ team.role }}</p>
                 </div>
               </div>
-
-              <!-- Info -->
-              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-brand-black/80 to-transparent">
-                <p class="text-brand-white font-poppins text-xs font-medium">{{ reel.title }}</p>
-                <p class="text-brand-white/50 font-poppins text-[10px]">{{ reel.views }} views</p>
-              </div>
-
-              <!-- Reel icon -->
-              <div class="absolute top-3 right-3">
-                <svg class="w-4 h-4 text-white/60" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-              </div>
-            </div>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- CLIENT TESTIMONIALS PREVIEW -->
-    <section class="section-padding bg-brand-black relative overflow-hidden">
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold/3 rounded-full blur-[150px]"></div>
-
-      <div class="relative max-w-7xl mx-auto">
-        <app-section-header
-          subtitle="Testimonials"
-          title="What Brands Say"
-          description="Trusted by leading brands and creators across India."
-          [titleGradient]="true"
-          appScrollAnimation
-          animationType="fade-up"
-        />
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          @for (testimonial of testimonials; track testimonial.name; let i = $index) {
-            <div
-              class="glass-card p-8 hover:border-brand-gold/20 transition-all duration-500"
-              appScrollAnimation
-              animationType="fade-up"
-              [animationDelay]="i * 150"
-            >
-              <!-- Stars -->
-              <div class="flex gap-1 mb-4">
-                @for (_ of [1,2,3,4,5]; track _) {
-                  <svg class="w-4 h-4 text-brand-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <p class="mt-4 text-brand-white/60 text-sm leading-6">{{ team.specialty }}</p>
+              <div class="mt-5 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] text-brand-white/40">
+                @for (tag of team.tags; track tag) {
+                  <span class="rounded-full border border-brand-white/10 px-3 py-1">{{ tag }}</span>
                 }
               </div>
-
-              <!-- Quote -->
-              <p class="text-brand-white/70 font-poppins text-sm leading-relaxed mb-6 italic">
-                "{{ testimonial.quote }}"
-              </p>
-
-              <!-- Author -->
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-gold/30 to-brand-pink/30 flex items-center justify-center">
-                  <span class="text-brand-white font-poppins font-semibold text-sm">{{ testimonial.initials }}</span>
-                </div>
-                <div>
-                  <p class="text-brand-white font-poppins text-sm font-medium">{{ testimonial.name }}</p>
-                  <p class="text-brand-white/40 font-poppins text-xs">{{ testimonial.role }}</p>
-                </div>
-              </div>
             </div>
           }
         </div>
       </div>
     </section>
 
-    <!-- COLLABORATION CTA -->
+    <!-- DIGITAL JOURNEY SECTION -->
     <section class="section-padding bg-brand-dark relative overflow-hidden">
-      <div class="absolute inset-0">
-        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-gold/5 via-transparent to-brand-pink/5"></div>
-      </div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(212,175,55,0.09),_transparent_30%)]"></div>
+      <div class="relative max-w-7xl mx-auto grid gap-12 lg:grid-cols-[0.95fr_1.05fr] items-center">
+        <div class="space-y-8">
+          <span class="text-brand-gold text-sm uppercase tracking-[0.3em]">Social Presence</span>
+          <h2 class="heading-lg text-brand-white max-w-xl">A digital journey designed for creators, brands and high-impact growth.</h2>
+          <p class="body-lg text-brand-white/70 max-w-2xl">From Instagram reels to branded content, our approach fuses editorial storytelling with measurable social momentum for premium campaigns.</p>
 
-      <div class="relative max-w-4xl mx-auto text-center" appScrollAnimation animationType="scale">
-        <span class="inline-block text-brand-gold font-poppins text-sm font-medium tracking-[3px] uppercase mb-4">
-          Ready to Collaborate?
-        </span>
-        <h2 class="heading-lg text-brand-white mb-6">
-          Let's Create Something <span class="gradient-text">Extraordinary</span>
-        </h2>
-        <p class="body-lg text-brand-white/60 max-w-2xl mx-auto mb-10">
-          Whether you're a brand looking for impact or a creator ready to grow,
-          we'd love to hear from you.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <app-magnetic-button>
-            <a routerLink="/collaborations" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-gold text-brand-black font-poppins font-semibold rounded-full hover:bg-brand-pink hover:text-white transition-all duration-500">
-              Partner With Us
-            </a>
-          </app-magnetic-button>
-          <app-magnetic-button>
-            <a routerLink="/contact" class="inline-flex items-center gap-2 px-8 py-4 border border-brand-gold/40 text-brand-gold font-poppins font-medium rounded-full hover:bg-brand-gold hover:text-brand-black transition-all duration-500">
-              Get In Touch
-            </a>
-          </app-magnetic-button>
+          <div class="grid gap-4 sm:grid-cols-2">
+            @for (stat of socialStats; track stat.label) {
+              <div class="glass-card border border-brand-white/10 p-6">
+                <p class="text-4xl font-playfair text-brand-gold">{{ stat.value }}</p>
+                <p class="text-brand-white/60 text-sm uppercase tracking-[0.28em] mt-2">{{ stat.label }}</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="relative rounded-[36px] border border-brand-white/10 bg-brand-black/80 p-6 shadow-[0_30px_90px_rgba(0,0,0,0.4)]">
+          <div class="relative overflow-hidden rounded-[32px] border border-brand-white/10 bg-brand-dark/90 p-4">
+            <div class="flex items-center justify-between mb-4">
+              <div class="h-2.5 w-24 rounded-full bg-brand-white/10"></div>
+              <div class="flex gap-2">
+                <span class="h-2.5 w-2.5 rounded-full bg-brand-red"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-brand-gold"></span>
+              </div>
+            </div>
+            <div class="grid gap-4">
+              @for (post of socialPosts; track post.title) {
+                <div class="rounded-3xl border border-brand-white/10 bg-brand-black/70 p-4 transition-all duration-300 hover:border-brand-gold/25">
+                  <div class="mb-3 h-40 rounded-[28px] bg-[radial-gradient(circle_at_top,_rgba(255,45,136,0.2),_rgba(13,13,13,0.95))]"></div>
+                  <h3 class="text-brand-white font-semibold">{{ post.title }}</h3>
+                  <p class="text-brand-white/50 text-sm leading-6">{{ post.description }}</p>
+                </div>
+              }
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- INSTAGRAM FEED SECTION -->
-    <section class="section-padding bg-brand-black relative">
+    <!-- WHY CHOOSE US -->
+    <section class="section-padding bg-brand-black relative overflow-hidden">
+      <div class="absolute left-0 top-1/4 w-72 h-72 rounded-full bg-brand-gold/10 blur-[100px]"></div>
       <div class="relative max-w-7xl mx-auto">
         <app-section-header
-          subtitle="Follow Us"
-          title="&#64;yashvibagga"
-          description="Behind the scenes, latest campaigns, and creative inspiration."
+          subtitle="Why Choose Us"
+          title="Our Creative Manifesto"
+          description="A premium agency approach built for fashion, media and creator brands."
+          [titleGradient]="true"
           appScrollAnimation
           animationType="fade-up"
         />
 
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-          @for (post of instagramPosts; track post.id; let i = $index) {
-            <a
-              href="https://instagram.com/yashvibagga"
-              target="_blank"
-              rel="noopener"
-              class="relative aspect-square rounded-lg overflow-hidden group"
-              appScrollAnimation
-              animationType="scale"
-              [animationDelay]="i * 60"
-            >
-              <div class="absolute inset-0" [style.background]="post.gradient"></div>
-              <div class="absolute inset-0 bg-brand-black/0 group-hover:bg-brand-black/40 transition-all duration-300 flex items-center justify-center">
-                <svg class="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 scale-75 group-hover:scale-100" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-              </div>
-            </a>
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3 mt-10">
+          @for (point of manifestoPoints; track point.title) {
+            <div class="glass-card p-8 border border-brand-white/10 transition-all duration-500 hover:-translate-y-2 hover:border-brand-gold/25">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-3xl bg-brand-gold/10 text-brand-gold text-xl mb-5">{{ point.icon }}</div>
+              <h3 class="text-xl font-playfair text-brand-white mb-3">{{ point.title }}</h3>
+              <p class="text-brand-white/60 text-sm leading-6">{{ point.description }}</p>
+            </div>
           }
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO HIGHLIGHTS -->
+    <section class="section-padding bg-brand-dark relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-brand-black via-transparent to-brand-black opacity-60"></div>
+      <div class="relative max-w-7xl mx-auto">
+        <app-section-header
+          subtitle="Portfolio Highlights"
+          title="Editorial Visual Stories"
+          description="A luxury showcase of campaigns, reels and cinematic brand moments."
+          appScrollAnimation
+          animationType="fade-up"
+        />
+
+        <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] mt-10">
+          <div class="grid gap-6">
+            @for (card of portfolioHighlights.slice(0,2); track card.title) {
+              <div class="relative rounded-[32px] overflow-hidden border border-brand-white/10 bg-[linear-gradient(180deg,_rgba(212,175,55,0.08),_rgba(10,10,10,0.9))] p-6 group hover:-translate-y-2 transition-all duration-500">
+                <div class="mb-4 h-64 rounded-[28px] bg-[url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center"></div>
+                <p class="text-brand-gold uppercase text-[11px] tracking-[0.32em] mb-3">{{ card.category }}</p>
+                <h3 class="text-2xl font-playfair text-brand-white">{{ card.title }}</h3>
+              </div>
+            }
+          </div>
+          <div class="grid gap-6">
+            @for (card of portfolioHighlights.slice(2); track card.title) {
+              <div class="relative rounded-[32px] overflow-hidden border border-brand-white/10 bg-[linear-gradient(180deg,_rgba(255,45,136,0.08),_rgba(10,10,10,0.95))] p-6 group hover:-translate-y-2 transition-all duration-500">
+                <div class="mb-4 h-72 rounded-[28px] bg-[url('https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center"></div>
+                <p class="text-brand-gold uppercase text-[11px] tracking-[0.32em] mb-3">{{ card.category }}</p>
+                <h3 class="text-2xl font-playfair text-brand-white">{{ card.title }}</h3>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section-padding bg-brand-black relative overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.1),_transparent_30%)]"></div>
+      <div class="relative max-w-6xl mx-auto rounded-[40px] border border-brand-gold/15 bg-brand-dark/90 p-12 text-center shadow-[0_40px_120px_rgba(0,0,0,0.55)]">
+        <p class="text-brand-gold uppercase tracking-[0.35em] text-sm mb-4">Let’s Create Together</p>
+        <h2 class="heading-lg text-brand-white mb-6">Let’s Create Something Extraordinary Together.</h2>
+        <p class="body-lg text-brand-white/70 max-w-2xl mx-auto mb-10">Book a consultation with YASHVI BAGGA PRODUCTIONS and bring your next luxury campaign, creator story, or production project to life.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <app-magnetic-button>
+            <a routerLink="/contact" class="inline-flex items-center gap-3 px-10 py-4 bg-brand-gold text-brand-black font-semibold rounded-full transition-all duration-500 hover:bg-brand-white">
+              Contact Us
+            </a>
+          </app-magnetic-button>
+          <app-magnetic-button>
+            <a href="https://wa.me/" target="_blank" class="inline-flex items-center gap-3 px-10 py-4 border border-brand-white/20 text-brand-white font-medium rounded-full transition-all duration-500 hover:border-brand-gold hover:text-brand-gold">
+              WhatsApp Consultation
+            </a>
+          </app-magnetic-button>
         </div>
       </div>
     </section>
   `,
-  styles: [`
-    :host { display: block; }
-  `],
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  private readonly animationService = inject(AnimationService);
+export class HomeComponent implements OnInit {
   private readonly seoService = inject(SeoService);
-  private readonly platformId = inject(PLATFORM_ID);
 
-  stats = [
-    { value: '500+', label: 'Campaigns' },
-    { value: '200+', label: 'Brands' },
-    { value: '50M+', label: 'Reach' },
-    { value: '100+', label: 'Creators' },
+  heroFeatures = [
+    { icon: '✨', title: 'Cinematic Overlays', description: 'Elegant visual details that create premium, editorial depth.' },
+    { icon: '🎞️', title: 'Parallax Movement', description: 'Smooth layered motion that feels polished and modern.' },
+    { icon: '🪞', title: 'Glassmorphism CTA', description: 'Luxury call-to-action panels with premium blur and glow.' },
+    { icon: '📸', title: 'Instagram-Inspired UI', description: 'Creator culture visuals with bold social-first presentation.' },
   ];
 
-  featuredServices = [
-    { icon: '📱', title: 'Social Media Management', description: 'Strategic social media presence that grows your brand and engages your audience across all platforms.' },
-    { icon: '🌟', title: 'Influencer Marketing', description: 'Connect with the right influencers to amplify your brand message and reach millions.' },
-    { icon: '🎬', title: 'Content Creation', description: 'Cinematic reels, editorial shoots, and premium content that stops the scroll.' },
-    { icon: '🚀', title: 'Brand Promotions', description: 'Strategic brand campaigns that drive awareness, engagement, and conversions.' },
-    { icon: '🤝', title: 'Talent Collaborations', description: 'Connecting brands with top-tier creators for authentic, impactful partnerships.' },
-    { icon: '🎨', title: 'Creative Production', description: 'End-to-end production from concept to delivery with cinematic quality.' },
+  founderValues = [
+    { title: 'Visionary Storytelling', description: 'Transforming brand narratives into cinematic editorial moments.' },
+    { title: 'Premium Production', description: 'From concept to launch, every detail is crafted for camera-ready impact.' },
   ];
 
-  reelsShowcase = [
-    { title: 'Fashion Campaign', views: '2.4M', gradient: 'linear-gradient(135deg, #D4AF37 0%, #1A1A1A 100%)' },
-    { title: 'Brand Story', views: '1.8M', gradient: 'linear-gradient(135deg, #FF2E88 0%, #1A1A1A 100%)' },
-    { title: 'Product Launch', views: '3.1M', gradient: 'linear-gradient(135deg, #1A1A1A 0%, #D4AF37 100%)' },
-    { title: 'Creator Collab', views: '5.2M', gradient: 'linear-gradient(135deg, #FF2E88 0%, #D4AF37 100%)' },
-    { title: 'Editorial Shoot', views: '1.5M', gradient: 'linear-gradient(45deg, #D4AF37 0%, #FF2E88 100%)' },
-    { title: 'Lifestyle Reel', views: '4.7M', gradient: 'linear-gradient(180deg, #0A0A0A 0%, #D4AF37 100%)' },
-    { title: 'Music Video', views: '8.3M', gradient: 'linear-gradient(135deg, #FF2E88 0%, #0A0A0A 100%)' },
-    { title: 'Travel Campaign', views: '2.9M', gradient: 'linear-gradient(225deg, #D4AF37 0%, #FF2E88 100%)' },
+  premiumServices = [
+    { icon: '📱', title: 'Social Media Management', description: 'Luxury content curation, audience growth and creator-led storytelling.' },
+    { icon: '🎬', title: 'Content Creation', description: 'Fashion-forward videos, editorial shoots and campaign assets.' },
+    { icon: '🤝', title: 'Influencer Marketing', description: 'Strategic collaborations with creators and premium brand talent.' },
+    { icon: '🎥', title: 'Creative Production', description: 'Full-service production with cinematic direction and edit craft.' },
+    { icon: '✨', title: 'Personal Branding', description: 'Signature creator identity design for lasting digital influence.' },
+    { icon: '👥', title: 'Talent Management', description: 'Curated talent partnerships for brands and creators alike.' },
+    { icon: '💻', title: 'IT Solutions & Services', description: 'Digital infrastructure and technology experiences for modern brands.' },
+    { icon: '👔', title: 'Manpower Outsourcing', description: 'Creative staffing and operational support for growing teams.' },
+    { icon: '🎓', title: 'Vocational Training', description: 'Curated learning experiences for creators, editors and marketers.' },
   ];
 
-  testimonials = [
-    { name: 'Priya Sharma', initials: 'PS', role: 'CEO, Luxe Beauty', quote: 'Yashvi Bagga Productions transformed our brand presence. The content quality is unmatched and our engagement grew 400%.' },
-    { name: 'Rahul Verma', initials: 'RV', role: 'Founder, TechStart', quote: 'Working with this team was incredible. They understood our vision and delivered beyond expectations. Truly premium quality.' },
-    { name: 'Ananya Patel', initials: 'AP', role: 'Fashion Influencer', quote: 'The most professional production team I\'ve worked with. Every collaboration feels like creating art. Absolutely recommend!' },
+  coreTeam = [
+    { initials: 'AM', name: 'Aryan Malik', role: 'Photographer', specialty: 'Lifestyle & Fashion Photography', tags: ['Photographers', 'Editorial'] },
+    { initials: 'MS', name: 'Megha Sharma', role: 'Photographer', specialty: 'Product & Brand Imagery', tags: ['Photographers', 'Luxury'] },
+    { initials: 'RV', name: 'Rohan Verma', role: 'Videographer', specialty: 'Cinematic Video Direction', tags: ['Videographers', 'Storytelling'] },
+    { initials: 'PM', name: 'Pranjal Mishra', role: 'Videographer', specialty: 'Travel & Lifestyle Films', tags: ['Videographers', 'Motion'] },
+    { initials: 'TG', name: 'Tanvi Gupta', role: 'Graphic Designer', specialty: 'Brand Identity & Visual Design', tags: ['Designers', 'Brand'] },
+    { initials: 'RK', name: 'Riya Kapoor', role: 'Graphic Designer', specialty: 'Social Media Creative', tags: ['Designers', 'Social'] },
+    { initials: 'SK', name: 'Simran Kaur', role: 'Content Writer', specialty: 'Brand Storytelling & Copy', tags: ['Writers', 'Strategy'] },
+    { initials: 'AN', name: 'Anjali Dubey', role: 'Video Editor', specialty: 'Reels & Short-form Editing', tags: ['Editors', 'Motion'] },
   ];
 
-  instagramPosts = [
-    { id: 1, gradient: 'linear-gradient(135deg, #D4AF37 0%, #8B7355 100%)' },
-    { id: 2, gradient: 'linear-gradient(135deg, #FF2E88 0%, #CC2470 100%)' },
-    { id: 3, gradient: 'linear-gradient(135deg, #1A1A1A 0%, #3A3A3A 100%)' },
-    { id: 4, gradient: 'linear-gradient(135deg, #D4AF37 0%, #FF2E88 100%)' },
-    { id: 5, gradient: 'linear-gradient(135deg, #2A2A2A 0%, #D4AF37 100%)' },
-    { id: 6, gradient: 'linear-gradient(135deg, #FF2E88 0%, #D4AF37 100%)' },
+  socialStats = [
+    { value: '8.5M', label: 'Monthly Reach' },
+    { value: '120K', label: 'Creator Followers' },
+    { value: '98%', label: 'Engagement Rate' },
+    { value: '75+', label: 'Brand Partnerships' },
+  ];
+
+  socialPosts = [
+    { title: 'Campaign Teaser', description: 'A premium reel concept with high-gloss editorial styling.' },
+    { title: 'Creator Drop', description: 'A scroll-stopping social story for influencer audiences.' },
+    { title: 'Brand Launch', description: 'A cinematic content suite for luxury product reveal.' },
+  ];
+
+  manifestoPoints = [
+    { icon: '🧠', title: 'Creative & Trend-Driven Approach', description: 'We shape campaigns around culture, luxury and lasting impact.' },
+    { icon: '🔧', title: 'End-to-End Production Support', description: 'Strategy, shoot, edit and launch with seamless execution.' },
+    { icon: '🤝', title: 'Strong Industry Network', description: 'Creators, brands and media partners aligned for every story.' },
+    { icon: '👥', title: 'Youth-Centric Digital Strategy', description: 'Modern content for Gen Z, creators and aspirational audiences.' },
+    { icon: '🎨', title: 'Premium Visual Storytelling', description: 'Editorial frames, fashion aesthetics and cinematic motion.' },
+    { icon: '📈', title: 'Result-Oriented Campaigns', description: 'Every experience is built to drive engagement and growth.' },
+  ];
+
+  portfolioHighlights = [
+    { title: 'Luxury Fashion Film', category: 'Campaign' },
+    { title: 'Creator Lifestyle Series', category: 'Editorial' },
+    { title: 'Brand Launch Visuals', category: 'Production' },
+    { title: 'Social Growth Reel', category: 'Digital' },
   ];
 
   ngOnInit(): void {
     this.seoService.updateMetaTags({
-      title: 'Yashvi Bagga Productions | Premium Creative Media & Digital Production Agency',
-      description: 'Creating Influence. Building Brands. Producing Digital Impact. Premium creative media and influencer marketing agency.',
+      title: 'Home | YASHVI BAGGA PRODUCTIONS',
+      description: 'Luxury creative media agency specializing in cinematic storytelling, influencer campaigns, and premium digital experiences.',
+      url: 'https://yashvibagga.com',
     });
-  }
-
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.animationService.refresh();
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.animationService.killAll();
   }
 }

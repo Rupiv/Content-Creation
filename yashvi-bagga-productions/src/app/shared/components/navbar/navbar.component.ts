@@ -46,50 +46,62 @@ import { ScrollService } from '../../../core/services/scroll.service';
                   </button>
 
                   <!-- Mega Menu Dropdown -->
-                  <div class="absolute left-0 mt-0 w-max opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pt-4">
-                    <div class="bg-brand-dark/95 backdrop-blur-lg border border-brand-gold/20 rounded-xl shadow-2xl p-8">
-                      <div class="grid grid-cols-4 gap-8 min-w-[1000px]">
-                        <!-- Services Overview -->
-                        <div>
-                          <h3 class="text-sm font-playfair text-brand-gold font-semibold mb-4 uppercase tracking-wide">Services Overview</h3>
-                          <a routerLink="/services" class="block text-xs text-brand-white/70 hover:text-brand-gold transition-colors duration-300 mb-2">
-                            View All Services
-                          </a>
-                          <a routerLink="/contact" class="block text-xs text-brand-white/70 hover:text-brand-gold transition-colors duration-300">
-                            Get Started
-                          </a>
+                  <div class="absolute left-0 mt-0 w-max opacity-0 invisible translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 pt-4 pointer-events-none group-hover:pointer-events-auto">
+                    <div class="bg-brand-dark/95 backdrop-blur-xl border border-brand-gold/20 rounded-[28px] shadow-2xl p-8">
+                      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-8 min-w-[1120px]">
+                        <div class="space-y-4">
+                          <h3 class="text-sm font-playfair text-brand-gold font-semibold uppercase tracking-wide">Services Overview</h3>
+                          <p class="text-xs leading-6 text-brand-white/55">
+                            A connected ecosystem for creative media, talent, technology and workforce growth.
+                          </p>
+                          <div class="space-y-2">
+                            <a routerLink="/services" class="block text-xs text-brand-white/70 hover:text-brand-gold transition-colors duration-300">View All Services</a>
+                            <a routerLink="/join-network" class="block text-xs text-brand-white/70 hover:text-brand-gold transition-colors duration-300">Join Network</a>
+                            <a routerLink="/contact" class="block text-xs text-brand-white/70 hover:text-brand-gold transition-colors duration-300">Get Started</a>
+                          </div>
                         </div>
 
-                        <!-- Creative Media & Branding -->
-                        <div>
-                          <h3 class="text-sm font-playfair text-brand-gold font-semibold mb-4 uppercase tracking-wide">Creative Media</h3>
+                        <div class="space-y-4">
+                          <h3 class="text-sm font-playfair text-brand-gold font-semibold uppercase tracking-wide">Creative Media</h3>
                           <ul class="space-y-2">
-                            <li><a routerLink="/services/creative-media" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Brand Strategy</a></li>
-                            <li><a href="#" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Content Creation</a></li>
-                            <li><a href="#" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Video Production</a></li>
-                            <li><a href="#" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Social Media</a></li>
+                            <li><a routerLink="/services/creative-media" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Creative Media & Production</a></li>
+                            <li><a routerLink="/services/creative-media" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Content Creation</a></li>
+                            <li><a routerLink="/services/creative-media" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Video Production</a></li>
+                            <li><a routerLink="/services/creative-media" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Social Media Strategy</a></li>
                           </ul>
                         </div>
 
-                        <!-- IT Solutions & Services -->
-                        <div>
-                          <h3 class="text-sm font-playfair text-brand-gold font-semibold mb-4 uppercase tracking-wide">IT Solutions</h3>
+                        <div class="space-y-4">
+                          <h3 class="text-sm font-playfair text-brand-gold font-semibold uppercase tracking-wide">Casting & Talent</h3>
                           <ul class="space-y-2">
-                            <li><a routerLink="/services/it-solutions" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Web Development</a></li>
-                            <li><a href="#" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Mobile Apps</a></li>
-                            <li><a href="#" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Cloud Solutions</a></li>
-                            <li><a href="#" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Digital Transform</a></li>
+                            <li><a routerLink="/casting-services" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Casting Services</a></li>
+                            <li><a routerLink="/casting-application" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Casting Application</a></li>
+                            <li><a routerLink="/talent-network" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Talent Network</a></li>
+                            <li><a routerLink="/join-network" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Register as Talent</a></li>
+                            <li><a routerLink="/media-professional" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Media Professional</a></li>
+                            <li><a routerLink="/collaborations" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Apply for Collaborations</a></li>
                           </ul>
                         </div>
 
-                        <!-- Staffing & Training -->
-                        <div>
-                          <h3 class="text-sm font-playfair text-brand-gold font-semibold mb-4 uppercase tracking-wide">Growth Services</h3>
+                        <div class="space-y-4">
+                          <h3 class="text-sm font-playfair text-brand-gold font-semibold uppercase tracking-wide">Technology</h3>
                           <ul class="space-y-2">
-                            <li><a routerLink="/services/manpower-outsourcing" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Staffing Solutions</a></li>
-                            <li><a routerLink="/services/vocational-training" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Training Programs</a></li>
-                            <li><a href="#" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Recruitment</a></li>
-                            <li><a href="#" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Career Development</a></li>
+                            <li><a routerLink="/it-solutions" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Technology & Digital Solutions</a></li>
+                            <li><a routerLink="/services/it-solutions" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Web & App Development</a></li>
+                            <li><a routerLink="/services/it-solutions" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">CRM & ERP Platforms</a></li>
+                            <li><a routerLink="/services/it-solutions" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Cloud & Support</a></li>
+                          </ul>
+                        </div>
+
+                        <div class="space-y-4">
+                          <h3 class="text-sm font-playfair text-brand-gold font-semibold uppercase tracking-wide">Workforce & Growth</h3>
+                          <ul class="space-y-2">
+                            <li><a routerLink="/workforce-solutions" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Workforce Solutions</a></li>
+                            <li><a routerLink="/services/manpower-outsourcing" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Staffing Services</a></li>
+                            <li><a routerLink="/manpower-requirement" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Manpower Requirement</a></li>
+                            <li><a routerLink="/vocational-training" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Vocational Training</a></li>
+                            <li><a routerLink="/join-network" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Career Portal</a></li>
+                            <li><a routerLink="/our-process" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Our Process</a></li>
                           </ul>
                         </div>
                       </div>
@@ -166,12 +178,46 @@ import { ScrollService } from '../../../core/services/scroll.service';
                 
                 <!-- Mobile Services Submenu -->
                 @if (mobileServicesOpen()) {
-                  <div class="flex flex-col items-center gap-4 pt-4 border-t border-brand-gold/20 w-full">
-                    <a routerLink="/services" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">View All Services</a>
-                    <a routerLink="/services/creative-media" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Creative Media & Branding</a>
-                    <a routerLink="/services/it-solutions" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">IT Solutions & Services</a>
-                    <a routerLink="/services/manpower-outsourcing" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Manpower Outsourcing</a>
-                    <a routerLink="/services/vocational-training" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Vocational Training</a>
+                  <div class="w-full pt-4 border-t border-brand-gold/20 space-y-6">
+                    <div class="text-center">
+                      <a routerLink="/services" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">View All Services</a>
+                    </div>
+
+                    <div class="space-y-3">
+                      <p class="text-[11px] uppercase tracking-[0.3em] text-brand-gold/80 text-center">Creative Media</p>
+                      <div class="flex flex-col items-center gap-3">
+                        <a routerLink="/services/creative-media" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Creative Media & Production</a>
+                      </div>
+                    </div>
+
+                    <div class="space-y-3">
+                      <p class="text-[11px] uppercase tracking-[0.3em] text-brand-gold/80 text-center">Casting & Talent</p>
+                      <div class="flex flex-col items-center gap-3">
+                        <a routerLink="/casting-services" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Casting Services</a>
+                        <a routerLink="/casting-application" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Casting Application</a>
+                        <a routerLink="/talent-network" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Talent Network</a>
+                        <a routerLink="/join-network" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Join Network</a>
+                        <a routerLink="/media-professional" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Media Professional</a>
+                      </div>
+                    </div>
+
+                    <div class="space-y-3">
+                      <p class="text-[11px] uppercase tracking-[0.3em] text-brand-gold/80 text-center">Technology</p>
+                      <div class="flex flex-col items-center gap-3">
+                        <a routerLink="/it-solutions" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Technology & Digital Solutions</a>
+                        <a routerLink="/services/it-solutions" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Web & App Development</a>
+                      </div>
+                    </div>
+
+                    <div class="space-y-3">
+                      <p class="text-[11px] uppercase tracking-[0.3em] text-brand-gold/80 text-center">Workforce & Growth</p>
+                      <div class="flex flex-col items-center gap-3">
+                        <a routerLink="/workforce-solutions" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Workforce Solutions</a>
+                        <a routerLink="/manpower-requirement" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Manpower Requirement</a>
+                        <a routerLink="/vocational-training" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Vocational Training</a>
+                        <a routerLink="/our-process" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Our Process</a>
+                      </div>
+                    </div>
                   </div>
                 }
               </div>

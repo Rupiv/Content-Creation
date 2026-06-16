@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -6,11 +6,19 @@ import { ScrollAnimationDirective } from '../../shared/directives/scroll-animati
 import { SectionHeaderComponent } from '../../shared/components/section-header/section-header.component';
 import { MagneticButtonComponent } from '../../shared/components/magnetic-button/magnetic-button.component';
 import { SeoService } from '../../core/services/seo.service';
+import { CaptchaComponent } from '../../shared/components/captcha/captcha.component';
+import { RequirementTextareaComponent } from '../../shared/components/requirement-textarea/requirement-textarea.component';
+import { EmailOtpComponent } from '../../shared/components/email-otp/email-otp.component';
+import { MobileOtpComponent } from '../../shared/components/mobile-otp/mobile-otp.component';
+import { ToastService } from '../../shared/services/toast.service';
+import { NotificationService } from '../../shared/services/notification.service';
+import { indianMobileValidator } from '../../shared/validators/form.validators';
+import { InquiryPayload } from '../../shared/models/notification.model';
 
 @Component({
   selector: 'app-collaborations',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, ScrollAnimationDirective, SectionHeaderComponent, MagneticButtonComponent],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, ScrollAnimationDirective, SectionHeaderComponent, MagneticButtonComponent, CaptchaComponent, RequirementTextareaComponent, EmailOtpComponent, MobileOtpComponent],
   template: `
     <!-- HERO -->
     <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
@@ -162,6 +170,36 @@ import { SeoService } from '../../core/services/seo.service';
                 class="w-full bg-brand-white/5 border border-white/10 rounded-xl px-4 py-3 text-brand-white font-poppins text-sm focus:border-brand-gold focus:outline-none transition-colors"
                 placeholder="your@email.com"
               />
+              <div class="mt-2">
+                <app-email-otp
+                  formControlName="emailVerified"
+                  [destination]="collabForm.get('email')?.value || ''"
+                  [destinationValid]="!!collabForm.get('email')?.valid"
+                  purpose="collaboration-form"
+                />
+              </div>
+            </div>
+
+            <!-- Mobile -->
+            <div>
+              <label class="block text-brand-white/60 font-poppins text-sm mb-2">Mobile Number *</label>
+              <input
+                formControlName="phone"
+                type="tel"
+                class="w-full bg-brand-white/5 border border-white/10 rounded-xl px-4 py-3 text-brand-white font-poppins text-sm focus:border-brand-gold focus:outline-none transition-colors"
+                placeholder="+91 98765 43210"
+              />
+              @if (collabForm.get('phone')?.touched && collabForm.get('phone')?.hasError('indianMobile')) {
+                <p class="mt-1.5 text-brand-pink font-poppins text-xs">Enter a valid 10-digit Indian mobile number.</p>
+              }
+              <div class="mt-2">
+                <app-mobile-otp
+                  formControlName="mobileVerified"
+                  [destination]="collabForm.get('phone')?.value || ''"
+                  [destinationValid]="!!collabForm.get('phone')?.valid"
+                  purpose="collaboration-form"
+                />
+              </div>
             </div>
 
             <!-- Type -->
@@ -191,25 +229,34 @@ import { SeoService } from '../../core/services/seo.service';
             </div>
           </div>
 
-          <!-- Message -->
-          <div class="mb-8">
-            <label class="block text-brand-white/60 font-poppins text-sm mb-2">Tell us about yourself *</label>
-            <textarea
+          <!-- Message / Requirement -->
+          <div class="mb-6">
+            <app-requirement-textarea
               formControlName="message"
-              rows="4"
-              class="w-full bg-brand-white/5 border border-white/10 rounded-xl px-4 py-3 text-brand-white font-poppins text-sm focus:border-brand-gold focus:outline-none transition-colors resize-none"
+              label="Tell us about yourself"
+              [rows]="4"
               placeholder="Share your experience, niche, and what kind of collaboration you're interested in..."
-            ></textarea>
+            />
+          </div>
+
+          <!-- Captcha -->
+          <div class="mb-8">
+            <app-captcha #captchaRef formControlName="captcha" action="collaboration" />
           </div>
 
           <!-- Submit -->
           <div class="text-center">
             <button
               type="submit"
-              [disabled]="collabForm.invalid"
-              class="px-8 py-4 bg-brand-gold text-brand-black font-poppins font-semibold rounded-full hover:bg-brand-pink hover:text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              [disabled]="collabForm.invalid || submitting()"
+              class="inline-flex items-center gap-2 px-8 py-4 bg-brand-gold text-brand-black font-poppins font-semibold rounded-full hover:bg-brand-pink hover:text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Submit Application
+              @if (submitting()) {
+                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-20" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/><path class="opacity-90" fill="currentColor" d="M12 2a10 10 0 0110 10h-3a7 7 0 00-7-7V2z"/></svg>
+                Submitting…
+              } @else {
+                Submit Application
+              }
             </button>
           </div>
         </form>
@@ -221,8 +268,13 @@ import { SeoService } from '../../core/services/seo.service';
 export class CollaborationsComponent implements OnInit {
   private readonly seoService = inject(SeoService);
   private readonly fb = inject(FormBuilder);
+  private readonly toast = inject(ToastService);
+  private readonly notifications = inject(NotificationService);
+
+  @ViewChild('captchaRef') private captcha?: CaptchaComponent;
 
   showCreatorForm = false;
+  submitting = signal(false);
 
   brandBenefits = [
     'Access to 100+ verified creators',
@@ -244,18 +296,54 @@ export class CollaborationsComponent implements OnInit {
   collabForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, indianMobileValidator()]],
     type: ['', Validators.required],
     instagram: [''],
-    message: ['', [Validators.required, Validators.minLength(20)]],
+    // Min/max (20–2000) is enforced by <app-requirement-textarea>.
+    message: ['', [Validators.required]],
+    captcha: [''],
+    emailVerified: [null, Validators.required],
+    mobileVerified: [null, Validators.required],
   });
 
-  onSubmit(): void {
-    if (this.collabForm.valid) {
-      console.log('Form submitted:', this.collabForm.value);
-      // Handle form submission
-      alert('Thank you! We\'ll be in touch soon.');
-      this.collabForm.reset();
+  async onSubmit(): Promise<void> {
+    if (this.collabForm.invalid) {
+      this.collabForm.markAllAsTouched();
+      this.toast.error('Please complete all required fields before submitting.');
+      return;
     }
+
+    const verified = await this.captcha?.execute();
+    if (verified === false) {
+      return;
+    }
+
+    this.submitting.set(true);
+    const loadingId = this.toast.loading('Submitting your application…');
+
+    const value = this.collabForm.value;
+    const payload: InquiryPayload = {
+      type: 'collaboration',
+      label: 'Collaboration Form',
+      name: value.name ?? '',
+      mobile: value.phone ?? '',
+      email: value.email ?? '',
+      requirement: value.message ?? '',
+      extra: { collaboratorType: value.type, instagram: value.instagram },
+    };
+
+    this.notifications.notify(payload).subscribe({
+      next: () => {
+        this.toast.update(loadingId, 'success', "Thank you! We'll be in touch soon.");
+        this.collabForm.reset();
+        this.captcha?.reset();
+        this.submitting.set(false);
+      },
+      error: () => {
+        this.toast.update(loadingId, 'error', 'Something went wrong. Please try again shortly.');
+        this.submitting.set(false);
+      },
+    });
   }
 
   ngOnInit(): void {

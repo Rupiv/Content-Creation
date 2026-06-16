@@ -6,6 +6,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { WhatsappButtonComponent } from './shared/components/whatsapp-button/whatsapp-button.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { ToastContainerComponent } from './shared/components/toast/toast-container.component';
 import { ScrollService } from './core/services/scroll.service';
 import { SeoService } from './core/services/seo.service';
 
@@ -19,6 +20,7 @@ import { SeoService } from './core/services/seo.service';
     FooterComponent,
     WhatsappButtonComponent,
     LoadingComponent,
+    ToastContainerComponent,
   ],
   template: `
     <!-- Loading Screen -->
@@ -36,6 +38,7 @@ import { SeoService } from './core/services/seo.service';
 
       <app-footer />
       <app-whatsapp-button />
+      <app-toast-container />
 
       <!-- Back to top button -->
       @if (scrollService.isScrolled()) {

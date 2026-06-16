@@ -42,6 +42,56 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'casting-services',
+    loadComponent: () => import('./pages/network/talent-hub/talent-hub.component').then(m => m.TalentHubComponent),
+    data: { animation: 'casting-services', mode: 'casting' },
+  },
+  {
+    path: 'talent-network',
+    loadComponent: () => import('./pages/network/talent-hub/talent-hub.component').then(m => m.TalentHubComponent),
+    data: { animation: 'talent-network', mode: 'network' },
+  },
+  {
+    path: 'it-solutions',
+    loadComponent: () => import('./pages/services/it-solutions/it-solutions.component').then(m => m.ItSolutionsComponent),
+    data: { animation: 'it-solutions' },
+  },
+  {
+    path: 'workforce-solutions',
+    loadComponent: () => import('./pages/services/manpower-outsourcing/manpower-outsourcing.component').then(m => m.ManpowerOutsourcingComponent),
+    data: { animation: 'workforce-solutions' },
+  },
+  {
+    path: 'vocational-training',
+    loadComponent: () => import('./pages/services/vocational-training/vocational-training.component').then(m => m.VocationalTrainingComponent),
+    data: { animation: 'vocational-training' },
+  },
+  {
+    path: 'join-network',
+    loadComponent: () => import('./pages/network/join-network/join-network.component').then(m => m.JoinNetworkComponent),
+    data: { animation: 'join-network' },
+  },
+  {
+    path: 'casting-application',
+    loadComponent: () => import('./pages/casting/casting-application.component').then(m => m.CastingApplicationComponent),
+    data: { animation: 'casting-application' },
+  },
+  {
+    path: 'media-professional',
+    loadComponent: () => import('./pages/network/media-professional/media-professional.component').then(m => m.MediaProfessionalComponent),
+    data: { animation: 'media-professional' },
+  },
+  {
+    path: 'manpower-requirement',
+    loadComponent: () => import('./pages/workforce/manpower-requirement.component').then(m => m.ManpowerRequirementComponent),
+    data: { animation: 'manpower-requirement' },
+  },
+  {
+    path: 'our-process',
+    loadComponent: () => import('./pages/process/business-process.component').then(m => m.BusinessProcessComponent),
+    data: { animation: 'our-process' },
+  },
+  {
     path: 'portfolio',
     loadComponent: () => import('./pages/portfolio/portfolio.component').then(m => m.PortfolioComponent),
     data: { animation: 'portfolio' },

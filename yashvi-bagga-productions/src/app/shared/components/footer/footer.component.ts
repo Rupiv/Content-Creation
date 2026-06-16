@@ -113,6 +113,7 @@ export class FooterComponent {
     { path: '/services', label: 'Services' },
     { path: '/portfolio', label: 'Portfolio' },
     { path: '/collaborations', label: 'Collaborations' },
+    { path: '/join-network', label: 'Join Network' },
     { path: '/testimonials', label: 'Testimonials' },
     { path: '/contact', label: 'Contact' },
   ];
