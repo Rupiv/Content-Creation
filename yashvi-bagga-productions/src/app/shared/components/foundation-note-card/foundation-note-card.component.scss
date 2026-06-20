@@ -1,0 +1,56 @@
+// Foundation Note Card
+// Inherits the global design system (glass-card-gold, brand-gold, signature-script).
+// Animations mirror the existing gold "glow" keyframe and the site's shared
+// cubic-bezier(0.16, 1, 0.3, 1) easing — no new animation libraries introduced.
+
+$brand-gold: #D4AF37;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.foundation-note {
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  // Animated gold glow border (mirrors the global `glow` keyframe feel).
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid rgba($brand-gold, 0.15);
+    pointer-events: none;
+    animation: foundationGlow 4s ease-in-out infinite alternate;
+  }
+
+  // Subtle hover elevation with a warmer gold glow.
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 24px 48px rgba(0, 0, 0, 0.45),
+      0 0 32px rgba($brand-gold, 0.18);
+  }
+
+  // Accent line gently extends on hover.
+  &:hover .accent-line {
+    width: 6rem;
+  }
+}
+
+.accent-line {
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes foundationGlow {
+  0% {
+    box-shadow: 0 0 10px rgba($brand-gold, 0.08), inset 0 0 12px rgba($brand-gold, 0.02);
+    border-color: rgba($brand-gold, 0.12);
+  }
+  100% {
+    box-shadow: 0 0 22px rgba($brand-gold, 0.22), inset 0 0 16px rgba($brand-gold, 0.05);
+    border-color: rgba($brand-gold, 0.30);
+  }
+}

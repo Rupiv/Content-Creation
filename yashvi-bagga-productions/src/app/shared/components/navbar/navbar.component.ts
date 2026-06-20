@@ -17,8 +17,8 @@ import { ScrollService } from '../../../core/services/scroll.service';
         <div class="flex items-center justify-between h-20 lg:h-24">
           <!-- Logo -->
           <a routerLink="/" class="relative z-50 flex items-center gap-3 group" (click)="closeMenu()">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 flex items-center justify-center">
-              <span class="text-brand-black font-playfair font-bold text-lg">Y</span>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 flex items-center justify-center overflow-hidden">
+              <img src="/LogoYB.png" alt="Yashvi Bagga Productions logo" class="w-full h-full object-cover" />
             </div>
             <div class="hidden sm:block">
               <span class="text-brand-white font-playfair text-lg font-semibold tracking-wide group-hover:text-brand-gold transition-colors duration-300">

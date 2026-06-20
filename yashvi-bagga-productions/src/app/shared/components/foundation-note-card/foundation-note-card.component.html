@@ -1,0 +1,34 @@
+<article class="foundation-note group relative h-full glass-card-gold rounded-2xl overflow-hidden p-8 md:p-10 lg:p-12">
+  <!-- Ambient gold glow -->
+  <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-brand-gold/10 blur-[100px] pointer-events-none animate-fade-in"></div>
+
+  <div class="relative z-10">
+    <!-- Top label -->
+    <span class="block text-brand-gold font-poppins text-xs tracking-[4px] uppercase">{{ title }}</span>
+
+    <!-- Gold accent line -->
+    <div class="accent-line mt-4 mb-6 h-[2px] w-16 rounded-full bg-gradient-to-r from-brand-gold to-transparent"></div>
+
+    <!-- Headline -->
+    <h3 class="heading-md text-brand-white mb-6">{{ subtitle }}</h3>
+
+    <!-- Short story -->
+    <div class="space-y-4 text-brand-white/60 font-poppins text-sm leading-relaxed">
+      @for (paragraph of story; track $index) {
+        <p>{{ paragraph }}</p>
+      }
+    </div>
+
+    <!-- Founder quote block -->
+    <blockquote class="relative mt-8 pl-6 border-l-2 border-brand-gold/40">
+      <span class="absolute -left-1.5 -top-5 text-brand-gold/25 font-playfair text-5xl leading-none select-none pointer-events-none">&ldquo;</span>
+      <p class="text-brand-white/80 font-playfair italic text-base md:text-lg leading-relaxed">{{ quote }}</p>
+    </blockquote>
+
+    <!-- Signature -->
+    <div class="mt-8 pt-6 border-t border-brand-gold/10">
+      <p class="signature-script text-brand-gold text-3xl leading-none">{{ founderName }}</p>
+      <p class="text-brand-white/40 font-poppins text-xs tracking-[2px] uppercase mt-2">{{ founderRole }}</p>
+    </div>
+  </div>
+</article>

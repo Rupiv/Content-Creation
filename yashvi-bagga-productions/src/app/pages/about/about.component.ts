@@ -2,12 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollAnimationDirective } from '../../shared/directives/scroll-animation.directive';
 import { SectionHeaderComponent } from '../../shared/components/section-header/section-header.component';
+import { FoundationNoteCardComponent } from '../../shared/components/foundation-note-card/foundation-note-card.component';
 import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, ScrollAnimationDirective, SectionHeaderComponent],
+  imports: [CommonModule, ScrollAnimationDirective, SectionHeaderComponent, FoundationNoteCardComponent],
   template: `
     <!-- HERO -->
     <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
@@ -31,18 +32,16 @@ import { SeoService } from '../../core/services/seo.service';
     <section class="section-padding bg-brand-black relative">
       <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <!-- Image placeholder -->
+          <!-- Foundation Note panel -->
           <div class="relative" appScrollAnimation animationType="fade-left">
-            <div class="aspect-[4/5] rounded-2xl overflow-hidden relative">
-              <div class="absolute inset-0 bg-gradient-to-br from-brand-gold/20 via-brand-dark to-brand-pink/10"></div>
-              <div class="absolute inset-4 border border-brand-gold/20 rounded-xl"></div>
-              <div class="absolute bottom-8 left-8 right-8">
-                <div class="glass-card p-4">
-                  <p class="text-brand-gold font-playfair text-lg">Est. 2020</p>
-                  <p class="text-brand-white/60 font-poppins text-sm">New Delhi, India</p>
-                </div>
-              </div>
-            </div>
+            <app-foundation-note-card
+              title="Foundation Note"
+              subtitle="Every Dream Begins With A Vision"
+              [story]="foundationStory"
+              quote="I dedicate this venture to every dreamer who believes that creativity can create opportunities and transform lives."
+              founderName="Yashvi Bagga"
+              founderRole="Founder"
+            />
           </div>
 
           <!-- Content -->
@@ -193,6 +192,12 @@ import { SeoService } from '../../core/services/seo.service';
 })
 export class AboutComponent implements OnInit {
   private readonly seoService = inject(SeoService);
+
+  foundationStory = [
+    'YASHVI BAGGA PRODUCTIONS was founded with the belief that creativity has the power to inspire, influence and transform businesses, brands and individuals.',
+    'What started as a passion for meaningful content evolved into a platform that brings together talent, storytelling, innovation and strategic marketing under one roof.',
+    'We believe every brand has a story worth telling, every creator deserves an opportunity to shine, and every campaign should leave a lasting impact.',
+  ];
 
   philosophy = [
     { icon: '🎯', title: 'Our Mission', description: 'To empower brands and creators with premium content and strategic influence that drives real growth in the digital space.' },

@@ -24,8 +24,10 @@ import { IndustriesComponent } from './sections/industries.component';
         <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
           <div class="space-y-10">
             <div class="overflow-hidden">
-              <p class="font-poppins text-brand-gold text-sm tracking-[5px] uppercase mb-6 animate-fade-in" style="animation-delay: 0.4s;">
-                YASHVI BAGGA PRODUCTIONS
+              <p class="font-poppins text-brand-gold text-sm tracking-[5px] uppercase mb-6 animate-fade-in inline-flex items-center" style="animation-delay: 0.4s;">
+                <span class="inline-flex w-6 h-6 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 items-center justify-center overflow-hidden align-middle mr-0.5">
+                  <img src="/LogoYB.png" alt="Yashvi Bagga Productions logo" class="w-full h-full object-cover" />
+                </span>ASHVI BAGGA PRODUCTIONS
               </p>
             </div>
 
