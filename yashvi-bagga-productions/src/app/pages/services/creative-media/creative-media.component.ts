@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ScrollAnimationDirective } from '../../../shared/directives/scroll-animation.directive';
 import { SectionHeaderComponent } from '../../../shared/components/section-header/section-header.component';
-import { MagneticButtonComponent } from '../../../shared/components/magnetic-button/magnetic-button.component';
 import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
   selector: 'app-creative-media',
   standalone: true,
-  imports: [CommonModule, RouterLink, ScrollAnimationDirective, SectionHeaderComponent, MagneticButtonComponent],
+  imports: [CommonModule, RouterLink, ScrollAnimationDirective, SectionHeaderComponent],
   template: `
     <!-- HERO SECTION -->
     <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">

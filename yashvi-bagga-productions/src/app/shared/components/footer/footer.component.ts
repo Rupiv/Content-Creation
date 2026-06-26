@@ -17,8 +17,8 @@ import { RouterLink } from '@angular/router';
           <!-- Brand -->
           <div class="lg:col-span-1">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 flex items-center justify-center">
-                <span class="text-brand-black font-playfair font-bold text-lg">Y</span>
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 flex items-center justify-center overflow-hidden">
+                <img src="/LogoYB.png" alt="Yashvi Bagga Productions logo" class="w-full h-full object-cover" />
               </div>
               <div>
                 <span class="text-brand-white font-playfair text-lg font-semibold">YASHVI BAGGA</span>
@@ -58,27 +58,13 @@ import { RouterLink } from '@angular/router';
             </ul>
           </div>
 
-          <!-- Services -->
-          <div>
-            <h4 class="text-brand-white font-playfair text-lg mb-6">Services</h4>
-            <ul class="space-y-3">
-              @for (service of services; track service) {
-                <li>
-                  <a routerLink="/services" class="text-brand-white/50 font-poppins text-sm hover:text-brand-gold transition-colors duration-300">
-                    {{ service }}
-                  </a>
-                </li>
-              }
-            </ul>
-          </div>
-
           <!-- Contact Info -->
           <div>
             <h4 class="text-brand-white font-playfair text-lg mb-6">Get In Touch</h4>
             <ul class="space-y-4">
               <li class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-brand-gold mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                <span class="text-brand-white/50 font-poppins text-sm">hello&#64;yashvibagga.com</span>
+                <span class="text-brand-white/50 font-poppins text-sm">ybproductions2025@gmail.com</span>
               </li>
               <li class="flex items-start gap-3">
                 <svg class="w-5 h-5 text-brand-gold mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -116,14 +102,5 @@ export class FooterComponent {
     { path: '/join-network', label: 'Join Network' },
     { path: '/testimonials', label: 'Testimonials' },
     { path: '/contact', label: 'Contact' },
-  ];
-
-  services = [
-    'Social Media Management',
-    'Influencer Marketing',
-    'Content Creation',
-    'Brand Promotions',
-    'Talent Collaborations',
-    'Creative Production',
   ];
 }

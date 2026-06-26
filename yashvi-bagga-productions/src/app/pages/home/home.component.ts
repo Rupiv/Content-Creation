@@ -25,9 +25,9 @@ import { IndustriesComponent } from './sections/industries.component';
           <div class="space-y-10">
             <div class="overflow-hidden">
               <p class="font-poppins text-brand-gold text-sm tracking-[5px] uppercase mb-6 animate-fade-in inline-flex items-center" style="animation-delay: 0.4s;">
-                <span class="inline-flex w-6 h-6 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 items-center justify-center overflow-hidden align-middle mr-0.5">
+                <!-- <span class="inline-flex w-6 h-6 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 items-center justify-center overflow-hidden align-middle mr-0.5">
                   <img src="/LogoYB.png" alt="Yashvi Bagga Productions logo" class="w-full h-full object-cover" />
-                </span>ASHVI BAGGA PRODUCTIONS
+                </span>YASHVI BAGGA PRODUCTIONS -->
               </p>
             </div>
 

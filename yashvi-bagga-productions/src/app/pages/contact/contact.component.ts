@@ -15,7 +15,7 @@ import { InquiryPayload } from '../../shared/models/notification.model';
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ScrollAnimationDirective, CaptchaComponent, RequirementTextareaComponent, EmailOtpComponent, MobileOtpComponent],
+  imports: [CommonModule, ReactiveFormsModule, ScrollAnimationDirective, CaptchaComponent, RequirementTextareaComponent], //, EmailOtpComponent, MobileOtpComponent
   template: `
     <!-- HERO -->
     <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
@@ -48,7 +48,7 @@ import { InquiryPayload } from '../../shared/models/notification.model';
                 </div>
                 <div>
                   <p class="text-brand-white/40 font-poppins text-xs uppercase tracking-wider mb-1">Email</p>
-                  <p class="text-brand-white font-poppins text-sm">hello&#64;yashvibagga.com</p>
+                  <p class="text-brand-white font-poppins text-sm">ybproductions2025@gmail.com</p>
                 </div>
               </div>
 
@@ -151,14 +151,14 @@ import { InquiryPayload } from '../../shared/models/notification.model';
                         class="w-full bg-brand-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-brand-white font-poppins text-sm focus:border-brand-gold focus:outline-none transition-all duration-300"
                         placeholder="your@email.com"
                       />
-                      <div class="mt-2">
+                      <!-- <div class="mt-2">
                         <app-email-otp
                           formControlName="emailVerified"
                           [destination]="contactForm.get('email')?.value || ''"
                           [destinationValid]="!!contactForm.get('email')?.valid"
                           purpose="contact-form"
                         />
-                      </div>
+                      </div> -->
                     </div>
 
                     <div>
@@ -172,14 +172,14 @@ import { InquiryPayload } from '../../shared/models/notification.model';
                       @if (contactForm.get('phone')?.touched && contactForm.get('phone')?.hasError('indianMobile')) {
                         <p class="mt-1.5 text-brand-pink font-poppins text-xs">Enter a valid 10-digit Indian mobile number.</p>
                       }
-                      <div class="mt-2">
+                      <!-- <div class="mt-2">
                         <app-mobile-otp
                           formControlName="mobileVerified"
                           [destination]="contactForm.get('phone')?.value || ''"
                           [destinationValid]="!!contactForm.get('phone')?.valid"
                           purpose="contact-form"
                         />
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 }

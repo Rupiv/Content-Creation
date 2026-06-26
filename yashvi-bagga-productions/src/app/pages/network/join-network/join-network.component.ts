@@ -4,7 +4,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ScrollAnimationDirective } from '../../../shared/directives/scroll-animation.directive';
 import { SectionHeaderComponent } from '../../../shared/components/section-header/section-header.component';
-import { MagneticButtonComponent } from '../../../shared/components/magnetic-button/magnetic-button.component';
 import { SeoService } from '../../../core/services/seo.service';
 import { CaptchaComponent } from '../../../shared/components/captcha/captcha.component';
 import { RequirementTextareaComponent } from '../../../shared/components/requirement-textarea/requirement-textarea.component';
@@ -29,7 +28,7 @@ interface RegistrationRole {
 @Component({
   selector: 'app-join-network',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, ScrollAnimationDirective, SectionHeaderComponent, MagneticButtonComponent, CaptchaComponent, RequirementTextareaComponent, EmailOtpComponent, MobileOtpComponent, FileUploadComponent, SkillTagsComponent],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, ScrollAnimationDirective, SectionHeaderComponent, CaptchaComponent, RequirementTextareaComponent, EmailOtpComponent, MobileOtpComponent, FileUploadComponent, SkillTagsComponent],
   template: `
     <section class="relative min-h-[64vh] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 bg-brand-black">
