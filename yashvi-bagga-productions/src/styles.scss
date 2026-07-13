@@ -57,6 +57,42 @@ body {
   color: $brand-white;
 }
 
+// === FORM SELECT (native dropdowns) ===
+// Reactive-form selects share `formControlName`, giving us a selector specific
+// enough to beat Tailwind's padding utilities and swap the OS arrow for an
+// on-brand gold chevron.
+select[formControlName] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.05rem;
+  padding-right: 2.75rem;
+}
+
+// The native dropdown popup renders on the OS default (white) background, so
+// light option text becomes invisible. Force a dark, on-brand, readable list.
+select option,
+select optgroup {
+  background-color: $brand-gray;
+  color: $brand-white;
+  padding: 0.55rem 0.75rem;
+}
+
+// Muted placeholder rows (e.g. "Select your role").
+select option:disabled {
+  color: rgba($brand-white, 0.45);
+}
+
+// Highlight the currently selected value in brand gold.
+select option:checked {
+  background-color: rgba($brand-gold, 0.18);
+  color: $brand-gold;
+}
+
 // === UTILITY CLASSES ===
 .section-padding {
   @apply px-6 py-20 md:px-12 lg:px-24 xl:px-32;

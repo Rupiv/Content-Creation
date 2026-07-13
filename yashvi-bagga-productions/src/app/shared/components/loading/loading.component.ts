@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
             <div class="w-16 h-16 rounded-full border-2 border-t-brand-gold border-r-brand-gold border-b-transparent border-l-transparent animate-spin"></div>
           </div>
           <div class="absolute inset-0 flex items-center justify-center">
-            <img src="/LogoYB.png" alt="Yashvi Bagga Productions logo" class="w-10 h-10 rounded-full object-cover" />
+            <img src="/LogoYB.png" alt="Yashvi Bagga Productions logo" class="w-10 h-10 rounded-lg object-cover" />
           </div>
         </div>
 

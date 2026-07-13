@@ -49,18 +49,20 @@ export const serverRoutes: ServerRoute[] = [
     path: 'manpower-requirement',
     renderMode: RenderMode.Prerender,
   },
-  {
-    path: 'our-process',
-    renderMode: RenderMode.Prerender,
-  },
+  // Not part of PDF requirement — prerender route commented out
+  // {
+  //   path: 'our-process',
+  //   renderMode: RenderMode.Prerender,
+  // },
   {
     path: 'portfolio',
     renderMode: RenderMode.Prerender,
   },
-  {
-    path: 'collaborations',
-    renderMode: RenderMode.Prerender,
-  },
+  // Not part of PDF requirement — prerender route commented out
+  // {
+  //   path: 'collaborations',
+  //   renderMode: RenderMode.Prerender,
+  // },
   {
     path: 'testimonials',
     renderMode: RenderMode.Prerender,

@@ -2,11 +2,12 @@ import { Component, inject, signal, HostListener, PLATFORM_ID } from '@angular/c
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ScrollService } from '../../../core/services/scroll.service';
+import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, AuthModalComponent],
   template: `
     <nav
       class="fixed top-0 left-0 w-full z-50 transition-all duration-500"
@@ -17,7 +18,7 @@ import { ScrollService } from '../../../core/services/scroll.service';
         <div class="flex items-center justify-between h-20 lg:h-24">
           <!-- Logo -->
           <a routerLink="/" class="relative z-50 flex items-center gap-3 group" (click)="closeMenu()">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 flex items-center justify-center overflow-hidden">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-gold to-yellow-300 flex items-center justify-center overflow-hidden">
               <img src="/LogoYB.png" alt="Yashvi Bagga Productions logo" class="w-full h-full object-cover" />
             </div>
             <div class="hidden sm:block">
@@ -46,9 +47,9 @@ import { ScrollService } from '../../../core/services/scroll.service';
                   </button>
 
                   <!-- Mega Menu Dropdown -->
-                  <div class="absolute left-0 mt-0 w-max opacity-0 invisible translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 pt-4 pointer-events-none group-hover:pointer-events-auto">
+                  <div class="fixed left-1/2 top-16 -translate-x-1/2 pt-8 w-[min(1120px,95vw)] z-50 opacity-0 invisible translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
                     <div class="bg-brand-dark/95 backdrop-blur-xl border border-brand-gold/20 rounded-[28px] shadow-2xl p-8">
-                      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-8 min-w-[1120px]">
+                      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-8">
                         <div class="space-y-4">
                           <h3 class="text-sm font-playfair text-brand-gold font-semibold uppercase tracking-wide">Services Overview</h3>
                           <p class="text-xs leading-6 text-brand-white/55">
@@ -79,7 +80,8 @@ import { ScrollService } from '../../../core/services/scroll.service';
                             <li><a routerLink="/talent-network" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Talent Network</a></li>
                             <li><a routerLink="/join-network" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Register as Talent</a></li>
                             <li><a routerLink="/media-professional" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Media Professional</a></li>
-                            <li><a routerLink="/collaborations" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Apply for Collaborations</a></li>
+                            <!-- Not part of PDF requirement — link commented out -->
+                            <!-- <li><a routerLink="/collaborations" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Apply for Collaborations</a></li> -->
                           </ul>
                         </div>
 
@@ -101,7 +103,8 @@ import { ScrollService } from '../../../core/services/scroll.service';
                             <li><a routerLink="/manpower-requirement" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Manpower Requirement</a></li>
                             <li><a routerLink="/vocational-training" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Vocational Training</a></li>
                             <li><a routerLink="/join-network" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Career Portal</a></li>
-                            <li><a routerLink="/our-process" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Our Process</a></li>
+                            <!-- Not part of PDF requirement — link commented out -->
+                            <!-- <li><a routerLink="/our-process" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Our Process</a></li> -->
                           </ul>
                         </div>
                       </div>
@@ -120,12 +123,13 @@ import { ScrollService } from '../../../core/services/scroll.service';
                 </a>
               }
             }
-            <a
-              routerLink="/contact"
+            <button
+              type="button"
+              (click)="openAuthModal()"
               class="ml-4 px-6 py-2.5 bg-brand-gold text-brand-black font-poppins font-medium text-sm rounded-full hover:bg-brand-pink hover:text-white transition-all duration-300 hover:scale-105"
             >
-              Let's Create
-            </a>
+              Log In / Sign Up
+            </button>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -215,7 +219,8 @@ import { ScrollService } from '../../../core/services/scroll.service';
                         <a routerLink="/workforce-solutions" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Workforce Solutions</a>
                         <a routerLink="/manpower-requirement" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Manpower Requirement</a>
                         <a routerLink="/vocational-training" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Vocational Training</a>
-                        <a routerLink="/our-process" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Our Process</a>
+                        <!-- Not part of PDF requirement — link commented out -->
+                        <!-- <a routerLink="/our-process" class="text-sm text-brand-white/70 hover:text-brand-gold transition-colors" (click)="closeMenu()">Our Process</a> -->
                       </div>
                     </div>
                   </div>
@@ -233,13 +238,13 @@ import { ScrollService } from '../../../core/services/scroll.service';
               </a>
             }
           }
-          <a
-            routerLink="/contact"
+          <button
+            type="button"
             class="mt-6 px-8 py-3 bg-brand-gold text-brand-black font-poppins font-semibold rounded-full hover:bg-brand-pink hover:text-white transition-all duration-300"
-            (click)="closeMenu()"
+            (click)="openAuthModal()"
           >
-            Let's Create
-          </a>
+            Log In / Sign Up
+          </button>
 
           <!-- Social Links Mobile -->
           <div class="flex gap-6 mt-8">
@@ -255,6 +260,9 @@ import { ScrollService } from '../../../core/services/scroll.service';
           </div>
         </div>
       </div>
+
+      <!-- Log In / Sign Up modal (UI only) -->
+      <app-auth-modal [open]="authModalOpen()" (closed)="authModalOpen.set(false)" />
     </nav>
   `,
   styles: [`
@@ -289,9 +297,18 @@ export class NavbarComponent {
     { path: '/about', label: 'About' },
     { path: '/services', label: 'Services' },
     { path: '/portfolio', label: 'Portfolio' },
-    { path: '/collaborations', label: 'Collaborations' },
+    // Not part of PDF requirement — nav entry commented out
+    // { path: '/collaborations', label: 'Collaborations' },
     { path: '/testimonials', label: 'Testimonials' },
+    { path: '/join-network', label: 'Career Portal' },
   ];
+
+  authModalOpen = signal(false);
+
+  openAuthModal(): void {
+    this.closeMenu();
+    this.authModalOpen.set(true);
+  }
 
   @HostListener('window:scroll')
   onScroll(): void {

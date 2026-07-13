@@ -86,21 +86,23 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/workforce/manpower-requirement.component').then(m => m.ManpowerRequirementComponent),
     data: { animation: 'manpower-requirement' },
   },
-  {
-    path: 'our-process',
-    loadComponent: () => import('./pages/process/business-process.component').then(m => m.BusinessProcessComponent),
-    data: { animation: 'our-process' },
-  },
+  // Not part of PDF requirement — route commented out (page kept in repo)
+  // {
+  //   path: 'our-process',
+  //   loadComponent: () => import('./pages/process/business-process.component').then(m => m.BusinessProcessComponent),
+  //   data: { animation: 'our-process' },
+  // },
   {
     path: 'portfolio',
     loadComponent: () => import('./pages/portfolio/portfolio.component').then(m => m.PortfolioComponent),
     data: { animation: 'portfolio' },
   },
-  {
-    path: 'collaborations',
-    loadComponent: () => import('./pages/collaborations/collaborations.component').then(m => m.CollaborationsComponent),
-    data: { animation: 'collaborations' },
-  },
+  // Not part of PDF requirement — route commented out (page kept in repo)
+  // {
+  //   path: 'collaborations',
+  //   loadComponent: () => import('./pages/collaborations/collaborations.component').then(m => m.CollaborationsComponent),
+  //   data: { animation: 'collaborations' },
+  // },
   {
     path: 'testimonials',
     loadComponent: () => import('./pages/testimonials/testimonials.component').then(m => m.TestimonialsComponent),

@@ -17,7 +17,7 @@ import { RouterLink } from '@angular/router';
           <!-- Brand -->
           <div class="lg:col-span-1">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-gold to-yellow-300 flex items-center justify-center overflow-hidden">
+              <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-gold to-yellow-300 flex items-center justify-center overflow-hidden">
                 <img src="/LogoYB.png" alt="Yashvi Bagga Productions logo" class="w-full h-full object-cover" />
               </div>
               <div>
@@ -98,7 +98,8 @@ export class FooterComponent {
     { path: '/about', label: 'About Us' },
     { path: '/services', label: 'Services' },
     { path: '/portfolio', label: 'Portfolio' },
-    { path: '/collaborations', label: 'Collaborations' },
+    // Not part of PDF requirement — footer link commented out
+    // { path: '/collaborations', label: 'Collaborations' },
     { path: '/join-network', label: 'Join Network' },
     { path: '/testimonials', label: 'Testimonials' },
     { path: '/contact', label: 'Contact' },

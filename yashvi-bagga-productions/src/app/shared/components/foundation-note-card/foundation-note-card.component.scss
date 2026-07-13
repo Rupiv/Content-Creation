@@ -4,6 +4,7 @@
 // cubic-bezier(0.16, 1, 0.3, 1) easing — no new animation libraries introduced.
 
 $brand-gold: #D4AF37;
+$ease: cubic-bezier(0.16, 1, 0.3, 1);
 
 :host {
   display: block;
@@ -12,8 +13,8 @@ $brand-gold: #D4AF37;
 
 .foundation-note {
   transition:
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.5s $ease,
+    box-shadow 0.5s $ease;
 
   // Animated gold glow border (mirrors the global `glow` keyframe feel).
   &::before {
@@ -41,7 +42,77 @@ $brand-gold: #D4AF37;
 }
 
 .accent-line {
-  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.5s $ease;
+}
+
+// ── Story reading column ────────────────────────────────────────────────
+// Keeps the full (lengthy) note intact, but contains it in a balanced,
+// scrollable column so the card reads as a refined panel rather than an
+// endless wall of text. A soft mask fades the final lines into the card.
+.story-scroll {
+  // Cap the reading height so the card stays proportional next to its
+  // sibling column; the note never gets trimmed — it scrolls.
+  max-height: 22rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  // Fade the top and bottom edges so scrolling feels seamless.
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 1.25rem,
+    #000 calc(100% - 1.75rem),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 1.25rem,
+    #000 calc(100% - 1.75rem),
+    transparent 100%
+  );
+
+  // Thin, on-brand gold scrollbar.
+  scrollbar-width: thin;
+  scrollbar-color: rgba($brand-gold, 0.35) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($brand-gold, 0.30);
+    border-radius: 999px;
+    transition: background 0.3s $ease;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background: rgba($brand-gold, 0.55);
+  }
+}
+
+.story-content {
+  // First line of reading should breathe under the mask fade.
+  padding-top: 0.25rem;
+  padding-bottom: 0.5rem;
+}
+
+// Lead paragraph — a slightly larger, brighter entry point with a classic
+// editorial drop-cap to give the long note a clear, premium starting beat.
+.story-lead {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.95rem;
+
+  &::first-letter {
+    float: left;
+    margin: 0.05em 0.12em 0 0;
+    color: $brand-gold;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 3.1em;
+    line-height: 0.82;
+    font-weight: 600;
+  }
 }
 
 @keyframes foundationGlow {
@@ -52,5 +123,15 @@ $brand-gold: #D4AF37;
   100% {
     box-shadow: 0 0 22px rgba($brand-gold, 0.22), inset 0 0 16px rgba($brand-gold, 0.05);
     border-color: rgba($brand-gold, 0.30);
+  }
+}
+
+// Respect users who prefer reduced motion.
+@media (prefers-reduced-motion: reduce) {
+  .foundation-note,
+  .foundation-note::before,
+  .accent-line {
+    animation: none !important;
+    transition: none !important;
   }
 }

@@ -95,6 +95,43 @@ import { IndustriesComponent } from './sections/industries.component';
 
     <app-ecosystem-expansion />
 
+    <!-- SHOWCASE OF THE WEEK -->
+    <section class="section-padding bg-brand-dark relative overflow-hidden">
+      <div class="absolute -top-10 right-0 w-80 h-80 rounded-full bg-brand-gold/10 blur-[120px]"></div>
+      <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-brand-pink/10 blur-[120px]"></div>
+
+      <div class="relative max-w-6xl mx-auto">
+        <div class="text-center mb-10" appScrollAnimation animationType="fade-up">
+          <span class="text-brand-gold text-sm uppercase tracking-[0.3em]">Weekly Spotlight</span>
+          <p class="body-lg text-brand-white/60 max-w-2xl mx-auto mt-4">Discover. Inspire. Celebrate — a weekly spotlight on exceptional talent, outstanding work and inspiring stories from the world of film, television and digital entertainment.</p>
+        </div>
+
+        <figure
+          class="group relative rounded-[36px] border border-brand-gold/15 bg-brand-black/60 p-3 sm:p-4 overflow-hidden transition-all duration-500 hover:border-brand-gold/30"
+          appScrollAnimation
+          animationType="fade-up"
+        >
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.05),_transparent_30%)]"></div>
+          <img
+            src="/ShowcaseOfTheWeek.png"
+            alt="Showcase of the Week — Talent. Creativity. Opportunity. Only at Yashvi Bagga Productions."
+            loading="lazy"
+            class="relative z-10 w-full rounded-[28px] object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          />
+        </figure>
+
+        <div class="mt-10 text-center" appScrollAnimation animationType="fade-up">
+          <a
+            routerLink="/talent-network"
+            class="inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-8 py-3 font-medium text-brand-black transition-colors duration-300 hover:bg-brand-white"
+          >
+            Be Next Week's Showcase
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- FOUNDER SECTION -->
     <section class="section-padding bg-brand-black relative overflow-hidden">
       <div class="absolute right-0 top-0 w-72 h-72 rounded-full bg-brand-pink/10 blur-[100px]"></div>

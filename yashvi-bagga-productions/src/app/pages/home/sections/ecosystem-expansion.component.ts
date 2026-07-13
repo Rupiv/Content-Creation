@@ -235,11 +235,12 @@ interface TrainingStory {
                     Register as Talent
                   </a>
                 </app-magnetic-button>
-                <app-magnetic-button>
+                <!-- Not part of PDF requirement — Collaborations CTA commented out -->
+                <!-- <app-magnetic-button>
                   <a routerLink="/collaborations" class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-brand-white/15 text-brand-white font-medium transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold">
                     Apply for Collaborations
                   </a>
-                </app-magnetic-button>
+                </app-magnetic-button> -->
               </div>
             </div>
           </div>
@@ -438,11 +439,12 @@ interface TrainingStory {
               Open Registration Page
             </a>
           </app-magnetic-button>
-          <app-magnetic-button>
+          <!-- Not part of PDF requirement — Collaboration Brief CTA commented out -->
+          <!-- <app-magnetic-button>
             <a routerLink="/collaborations" class="inline-flex items-center justify-center rounded-full border border-brand-white/15 px-7 py-3 font-medium text-brand-white transition-colors duration-300 hover:border-brand-gold hover:text-brand-gold">
               Collaboration Brief
             </a>
-          </app-magnetic-button>
+          </app-magnetic-button> -->
         </div>
 
         @if (selectedRegistration()) {
