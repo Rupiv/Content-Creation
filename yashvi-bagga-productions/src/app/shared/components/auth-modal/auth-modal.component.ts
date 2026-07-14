@@ -187,11 +187,11 @@ type AuthTab = 'login' | 'signup';
                 </select>
               </div>
               <div>
-                <label class="block text-xs uppercase tracking-wide text-brand-white/50 mb-1.5">Describe yourself in a few words</label>
+                <label class="block text-xs uppercase tracking-wide text-brand-white/50 mb-1.5">Describe your requirement</label>
                 <textarea
                   formControlName="description"
                   rows="3"
-                  placeholder="Tell us briefly about yourself…"
+                  placeholder="Briefly describe your requirement…"
                   class="w-full rounded-xl border border-brand-white/10 bg-brand-black/50 px-4 py-3 text-sm text-brand-white placeholder:text-brand-white/30 focus:border-brand-gold focus:outline-none transition-colors resize-none"
                 ></textarea>
               </div>

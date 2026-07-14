@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ScrollAnimationDirective } from '../../shared/directives/scroll-animation.directive';
@@ -35,6 +35,7 @@ import { SeoService } from '../../core/services/seo.service';
         <app-section-header
           subtitle="Four Pillars of Excellence"
           title="Our Business Ecosystem"
+          description="Click any block to reveal what that vertical offers."
           [titleGradient]="true"
           appScrollAnimation
           animationType="fade-up"
@@ -49,22 +50,37 @@ import { SeoService } from '../../core/services/seo.service';
           >
             <div class="absolute -inset-0.5 bg-gradient-to-r from-brand-gold to-brand-pink rounded-xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500"></div>
             
-            <div class="relative bg-brand-dark/90 backdrop-blur-sm border border-brand-gold/30 rounded-xl p-12 h-full group-hover:border-brand-gold/60 transition-all duration-500 flex flex-col">
-              <div class="text-5xl mb-6">🎨</div>
-              <h3 class="text-3xl font-playfair text-brand-white mb-4">Creative Media & Branding</h3>
-              <p class="text-brand-white/60 font-poppins text-base leading-relaxed mb-8 flex-grow">
-                Premium creative solutions including brand strategy, content creation, video production, and social media management that elevates your brand presence.
-              </p>
-              <div class="space-y-2 mb-8">
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Brand Strategy & Identity</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Content Creation & Media</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Video Production</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Social Media Management</p>
+            <div
+              (click)="togglePillar(0)"
+              role="button"
+              tabindex="0"
+              [attr.aria-expanded]="openPillar() === 0"
+              (keydown.enter)="togglePillar(0)"
+              (keydown.space)="togglePillar(0)"
+              class="relative bg-brand-dark/90 backdrop-blur-sm border border-brand-gold/30 rounded-xl p-12 h-full group-hover:border-brand-gold/60 transition-all duration-500 flex flex-col cursor-pointer"
+            >
+              <div class="flex items-start justify-between">
+                <div class="text-5xl mb-6">🎨</div>
+                <svg class="w-6 h-6 text-brand-gold/70 transition-transform duration-300" [class.rotate-180]="openPillar() === 0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </div>
-              <a routerLink="/services/creative-media" class="inline-flex items-center gap-3 px-6 py-3 bg-brand-gold text-brand-black font-poppins font-medium rounded-lg hover:bg-brand-pink hover:text-white transition-all duration-300 hover:scale-105 w-fit">
-                Explore Service
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
+              <h3 class="text-3xl font-playfair text-brand-white mb-4">Creative Media & Branding</h3>
+              @if (openPillar() === 0) {
+                <p class="text-brand-white/60 font-poppins text-base leading-relaxed mb-8 flex-grow">
+                  Premium creative solutions including brand strategy, content creation, video production, and social media management that elevates your brand presence.
+                </p>
+                <div class="space-y-2 mb-8">
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Brand Strategy & Identity</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Content Creation & Media</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Video Production</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Social Media Management</p>
+                </div>
+                <a routerLink="/services/creative-media" class="inline-flex items-center gap-3 px-6 py-3 bg-brand-gold text-brand-black font-poppins font-medium rounded-lg hover:bg-brand-pink hover:text-white transition-all duration-300 hover:scale-105 w-fit">
+                  Explore Service
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+              } @else {
+                <p class="text-brand-white/40 font-poppins text-sm">Click to view details</p>
+              }
             </div>
           </div>
 
@@ -77,22 +93,37 @@ import { SeoService } from '../../core/services/seo.service';
           >
             <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500"></div>
             
-            <div class="relative bg-brand-dark/90 backdrop-blur-sm border border-cyan-500/30 rounded-xl p-12 h-full group-hover:border-cyan-500/60 transition-all duration-500 flex flex-col">
-              <div class="text-5xl mb-6">💻</div>
-              <h3 class="text-3xl font-playfair text-brand-white mb-4">IT Solutions & Services</h3>
-              <p class="text-brand-white/60 font-poppins text-base leading-relaxed mb-8 flex-grow">
-                Enterprise-grade technology solutions including web development, mobile apps, cloud infrastructure, and digital transformation services.
-              </p>
-              <div class="space-y-2 mb-8">
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Web & Mobile Development</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Cloud Solutions</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Digital Transformation</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Enterprise Support</p>
+            <div
+              (click)="togglePillar(1)"
+              role="button"
+              tabindex="0"
+              [attr.aria-expanded]="openPillar() === 1"
+              (keydown.enter)="togglePillar(1)"
+              (keydown.space)="togglePillar(1)"
+              class="relative bg-brand-dark/90 backdrop-blur-sm border border-cyan-500/30 rounded-xl p-12 h-full group-hover:border-cyan-500/60 transition-all duration-500 flex flex-col cursor-pointer"
+            >
+              <div class="flex items-start justify-between">
+                <div class="text-5xl mb-6">💻</div>
+                <svg class="w-6 h-6 text-cyan-400/70 transition-transform duration-300" [class.rotate-180]="openPillar() === 1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </div>
-              <a routerLink="/services/it-solutions" class="inline-flex items-center gap-3 px-6 py-3 bg-cyan-500 text-brand-black font-poppins font-medium rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 hover:scale-105 w-fit">
-                Explore Service
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
+              <h3 class="text-3xl font-playfair text-brand-white mb-4">IT Solutions & Services</h3>
+              @if (openPillar() === 1) {
+                <p class="text-brand-white/60 font-poppins text-base leading-relaxed mb-8 flex-grow">
+                  Enterprise-grade technology solutions including web development, mobile apps, cloud infrastructure, and digital transformation services.
+                </p>
+                <div class="space-y-2 mb-8">
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Web & Mobile Development</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Cloud Solutions</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Digital Transformation</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Enterprise Support</p>
+                </div>
+                <a routerLink="/services/it-solutions" class="inline-flex items-center gap-3 px-6 py-3 bg-cyan-500 text-brand-black font-poppins font-medium rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 hover:scale-105 w-fit">
+                  Explore Service
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+              } @else {
+                <p class="text-brand-white/40 font-poppins text-sm">Click to view details</p>
+              }
             </div>
           </div>
 
@@ -105,22 +136,37 @@ import { SeoService } from '../../core/services/seo.service';
           >
             <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500"></div>
             
-            <div class="relative bg-brand-dark/90 backdrop-blur-sm border border-emerald-500/30 rounded-xl p-12 h-full group-hover:border-emerald-500/60 transition-all duration-500 flex flex-col">
-              <div class="text-5xl mb-6">👥</div>
-              <h3 class="text-3xl font-playfair text-brand-white mb-4">Manpower Outsourcing</h3>
-              <p class="text-brand-white/60 font-poppins text-base leading-relaxed mb-8 flex-grow">
-                Strategic staffing solutions for technical and non-technical roles, connecting organizations with top talent for permanent and contract positions.
-              </p>
-              <div class="space-y-2 mb-8">
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Technical Staffing</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Contract & Permanent Hiring</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Remote Workforce Solutions</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ HR Support Services</p>
+            <div
+              (click)="togglePillar(2)"
+              role="button"
+              tabindex="0"
+              [attr.aria-expanded]="openPillar() === 2"
+              (keydown.enter)="togglePillar(2)"
+              (keydown.space)="togglePillar(2)"
+              class="relative bg-brand-dark/90 backdrop-blur-sm border border-emerald-500/30 rounded-xl p-12 h-full group-hover:border-emerald-500/60 transition-all duration-500 flex flex-col cursor-pointer"
+            >
+              <div class="flex items-start justify-between">
+                <div class="text-5xl mb-6">👥</div>
+                <svg class="w-6 h-6 text-emerald-400/70 transition-transform duration-300" [class.rotate-180]="openPillar() === 2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </div>
-              <a routerLink="/services/manpower-outsourcing" class="inline-flex items-center gap-3 px-6 py-3 bg-emerald-500 text-brand-black font-poppins font-medium rounded-lg hover:bg-teal-500 hover:text-white transition-all duration-300 hover:scale-105 w-fit">
-                Explore Service
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
+              <h3 class="text-3xl font-playfair text-brand-white mb-4">Manpower Outsourcing</h3>
+              @if (openPillar() === 2) {
+                <p class="text-brand-white/60 font-poppins text-base leading-relaxed mb-8 flex-grow">
+                  Strategic staffing solutions for technical and non-technical roles, connecting organizations with top talent for permanent and contract positions.
+                </p>
+                <div class="space-y-2 mb-8">
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Technical Staffing</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Contract & Permanent Hiring</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Remote Workforce Solutions</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ HR Support Services</p>
+                </div>
+                <a routerLink="/services/manpower-outsourcing" class="inline-flex items-center gap-3 px-6 py-3 bg-emerald-500 text-brand-black font-poppins font-medium rounded-lg hover:bg-teal-500 hover:text-white transition-all duration-300 hover:scale-105 w-fit">
+                  Explore Service
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+              } @else {
+                <p class="text-brand-white/40 font-poppins text-sm">Click to view details</p>
+              }
             </div>
           </div>
 
@@ -133,22 +179,37 @@ import { SeoService } from '../../core/services/seo.service';
           >
             <div class="absolute -inset-0.5 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-500"></div>
             
-            <div class="relative bg-brand-dark/90 backdrop-blur-sm border border-yellow-500/30 rounded-xl p-12 h-full group-hover:border-yellow-500/60 transition-all duration-500 flex flex-col">
-              <div class="text-5xl mb-6">🎓</div>
-              <h3 class="text-3xl font-playfair text-brand-white mb-4">Vocational Training</h3>
-              <p class="text-brand-white/60 font-poppins text-base leading-relaxed mb-8 flex-grow">
-                Comprehensive professional development programs including IT training, digital marketing, soft skills, and industry certifications for career growth.
-              </p>
-              <div class="space-y-2 mb-8">
-                <p class="text-brand-white/70 font-poppins text-sm">✓ IT Training Programs</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Digital Skills</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Professional Certifications</p>
-                <p class="text-brand-white/70 font-poppins text-sm">✓ Career Development</p>
+            <div
+              (click)="togglePillar(3)"
+              role="button"
+              tabindex="0"
+              [attr.aria-expanded]="openPillar() === 3"
+              (keydown.enter)="togglePillar(3)"
+              (keydown.space)="togglePillar(3)"
+              class="relative bg-brand-dark/90 backdrop-blur-sm border border-yellow-500/30 rounded-xl p-12 h-full group-hover:border-yellow-500/60 transition-all duration-500 flex flex-col cursor-pointer"
+            >
+              <div class="flex items-start justify-between">
+                <div class="text-5xl mb-6">🎓</div>
+                <svg class="w-6 h-6 text-yellow-400/70 transition-transform duration-300" [class.rotate-180]="openPillar() === 3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </div>
-              <a routerLink="/services/vocational-training" class="inline-flex items-center gap-3 px-6 py-3 bg-yellow-500 text-brand-black font-poppins font-medium rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-300 hover:scale-105 w-fit">
-                Explore Service
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
+              <h3 class="text-3xl font-playfair text-brand-white mb-4">Vocational Training</h3>
+              @if (openPillar() === 3) {
+                <p class="text-brand-white/60 font-poppins text-base leading-relaxed mb-8 flex-grow">
+                  Comprehensive professional development programs including IT training, digital marketing, soft skills, and industry certifications for career growth.
+                </p>
+                <div class="space-y-2 mb-8">
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ IT Training Programs</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Digital Skills</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Professional Certifications</p>
+                  <p class="text-brand-white/70 font-poppins text-sm">✓ Career Development</p>
+                </div>
+                <a routerLink="/services/vocational-training" class="inline-flex items-center gap-3 px-6 py-3 bg-yellow-500 text-brand-black font-poppins font-medium rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-300 hover:scale-105 w-fit">
+                  Explore Service
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+              } @else {
+                <p class="text-brand-white/40 font-poppins text-sm">Click to view details</p>
+              }
             </div>
           </div>
         </div>
@@ -277,6 +338,17 @@ import { SeoService } from '../../core/services/seo.service';
 })
 export class ServicesComponent implements OnInit {
   private readonly seoService = inject(SeoService);
+
+  /**
+   * Which pillar block is expanded. Blocks show only icon + title until
+   * clicked, then reveal their description (per client requirement — Services
+   * shown as clickable blocks that expand to a description).
+   */
+  readonly openPillar = signal<number | null>(null);
+
+  togglePillar(index: number): void {
+    this.openPillar.update((current) => (current === index ? null : index));
+  }
 
   services = [
     {

@@ -102,7 +102,7 @@ import { AuthModalComponent } from '../auth-modal/auth-modal.component';
                             <li><a routerLink="/services/manpower-outsourcing" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Staffing Services</a></li>
                             <li><a routerLink="/manpower-requirement" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Manpower Requirement</a></li>
                             <li><a routerLink="/vocational-training" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Vocational Training</a></li>
-                            <li><a routerLink="/join-network" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Career Portal</a></li>
+                            <li><a routerLink="/join-network" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Careers</a></li>
                             <!-- Not part of PDF requirement — link commented out -->
                             <!-- <li><a routerLink="/our-process" class="text-xs text-brand-white/70 hover:text-brand-white transition-colors duration-300">Our Process</a></li> -->
                           </ul>
@@ -300,7 +300,12 @@ export class NavbarComponent {
     // Not part of PDF requirement — nav entry commented out
     // { path: '/collaborations', label: 'Collaborations' },
     { path: '/testimonials', label: 'Testimonials' },
-    { path: '/join-network', label: 'Career Portal' },
+    // Added per client requirement — Business Queries link (points to contact page)
+    { path: '/contact', label: 'Business Queries' },
+    // Added per client requirement — Film/TV Crew button placed before Careers (points to talent network)
+    { path: '/talent-network', label: 'Film/TV Crew' },
+    // Renamed per client requirement — "Career Portal" → "Careers"
+    { path: '/join-network', label: 'Careers' },
   ];
 
   authModalOpen = signal(false);

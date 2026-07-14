@@ -58,7 +58,8 @@ import { IndustriesComponent } from './sections/industries.component';
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+            <!-- Removed per client requirement — design-feature cards (Cinematic Overlays / Parallax / Glassmorphism / Instagram-Inspired UI) taken off the home page -->
+            <!-- <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
               @for (feature of heroFeatures; track feature.title) {
                 <div class="group relative overflow-hidden rounded-[28px] border border-brand-white/10 bg-brand-dark/70 p-6 transition-all duration-500 hover:border-brand-gold/25 hover:bg-brand-black/80">
                   <div class="absolute left-0 top-0 h-full w-full bg-gradient-to-r from-brand-gold/5 via-transparent to-brand-pink/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
@@ -71,21 +72,17 @@ import { IndustriesComponent } from './sections/industries.component';
                   </div>
                 </div>
               }
-            </div>
+            </div> -->
           </div>
 
           <div class="relative">
-            <div class="relative overflow-hidden rounded-[40px] border border-brand-white/10 bg-brand-dark/90 shadow-[0_40px_120px_rgba(0,0,0,0.45)]">
-              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(212,175,55,0.15),_transparent_40%)]"></div>
-              <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(255,45,136,0.16),_transparent_35%)]"></div>
-              <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-brand-black/80 to-transparent"></div>
-              <div class="aspect-[9/12] bg-[url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center"></div>
-              <div class="absolute inset-0 bg-brand-black/30"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-8">
-                <p class="mb-4 text-xs uppercase tracking-[0.32em] text-brand-gold/80">Featured Story</p>
-                <h2 class="text-3xl font-playfair text-brand-white mb-4">The Editorial Vision Behind Every Frame</h2>
-                <p class="text-brand-white/60 text-sm leading-6">A premium portrait of cinematic elegance, creative direction and storytelling that feels like a fashion magazine cover.</p>
-              </div>
+            <!-- Showcase of the Week poster (per client requirement — branded image from public/Images folder) -->
+            <div class="relative overflow-hidden rounded-[40px] border border-brand-gold/15 bg-brand-black/60 shadow-[0_40px_120px_rgba(0,0,0,0.45)]">
+              <img
+                src="/ShowcaseOfTheWeek.png"
+                alt="Showcase of the Week — Talent. Creativity. Opportunity. Only at Yashvi Bagga Productions."
+                class="w-full h-auto object-cover"
+              />
             </div>
             <div class="absolute -bottom-10 left-8 w-40 h-40 rounded-full border border-brand-gold/20 bg-brand-gold/10 blur-[50px]"></div>
           </div>
@@ -96,6 +93,8 @@ import { IndustriesComponent } from './sections/industries.component';
     <app-ecosystem-expansion />
 
     <!-- SHOWCASE OF THE WEEK -->
+    <!-- Commented out per client requirement — the Showcase of the Week poster now lives in the hero card above, so this dedicated banner is a duplicate. The "Be Next Week's Showcase" CTA is preserved below the poster instead. -->
+    <!--
     <section class="section-padding bg-brand-dark relative overflow-hidden">
       <div class="absolute -top-10 right-0 w-80 h-80 rounded-full bg-brand-gold/10 blur-[120px]"></div>
       <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-brand-pink/10 blur-[120px]"></div>
@@ -131,6 +130,7 @@ import { IndustriesComponent } from './sections/industries.component';
         </div>
       </div>
     </section>
+    -->
 
     <!-- FOUNDER SECTION -->
     <section class="section-padding bg-brand-black relative overflow-hidden">
@@ -367,12 +367,13 @@ import { IndustriesComponent } from './sections/industries.component';
 export class HomeComponent implements OnInit {
   private readonly seoService = inject(SeoService);
 
-  heroFeatures = [
-    { icon: '✨', title: 'Cinematic Overlays', description: 'Elegant visual details that create premium, editorial depth.' },
-    { icon: '🎞️', title: 'Parallax Movement', description: 'Smooth layered motion that feels polished and modern.' },
-    { icon: '🪞', title: 'Glassmorphism CTA', description: 'Luxury call-to-action panels with premium blur and glow.' },
-    { icon: '📸', title: 'Instagram-Inspired UI', description: 'Creator culture visuals with bold social-first presentation.' },
-  ];
+  // Removed per client requirement — design-feature cards taken off the home page.
+  // heroFeatures = [
+  //   { icon: '✨', title: 'Cinematic Overlays', description: 'Elegant visual details that create premium, editorial depth.' },
+  //   { icon: '🎞️', title: 'Parallax Movement', description: 'Smooth layered motion that feels polished and modern.' },
+  //   { icon: '🪞', title: 'Glassmorphism CTA', description: 'Luxury call-to-action panels with premium blur and glow.' },
+  //   { icon: '📸', title: 'Instagram-Inspired UI', description: 'Creator culture visuals with bold social-first presentation.' },
+  // ];
 
   founderValues = [
     { title: 'Visionary Storytelling', description: 'Transforming brand narratives into cinematic editorial moments.' },
